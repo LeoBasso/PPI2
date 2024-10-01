@@ -8,6 +8,7 @@ import './container/index';
 import usersRouter from 'src/modules/user/http/routes/User.routes';
 import schedulesRouter from 'src/modules/schedules/http/routes/Schedule.routes';
 import loginRouter from 'src/modules/auth/http/routes/Login.routes';
+import servicesRouter from 'src/modules/services/http/routes/Service.routes';
 
 const app = express();
 app.use(cors());
@@ -18,6 +19,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(loginRouter);
 app.use(usersRouter);
 app.use(schedulesRouter);
+app.use(servicesRouter);
 
 app.use(ErrorHandlerMiddleware);
 app.use(NotFound);

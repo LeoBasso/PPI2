@@ -20,7 +20,7 @@ const listServicesController = new ListServicesController();
 servicesRouter.use(isAuthenticated);
 
 servicesRouter.post('/service', Validator(CreateServiceSchema), createServiceController.execute);
-servicesRouter.put('/activity/:id', Validator(UpdateServiceSchema), updateServiceController.execute);
+servicesRouter.put('/service/:id', Validator(UpdateServiceSchema), updateServiceController.execute);
 servicesRouter.delete('/service/:id', Validator(DeleteServiceSchema), deleteServiceController.execute);
 servicesRouter.get('/services', listServicesController.execute);
 
