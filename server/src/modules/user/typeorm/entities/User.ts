@@ -5,8 +5,8 @@ import {
   OneToMany 
 } from 'typeorm';
 import { RoleTypes } from '../../domain/enums/RoleTypes.enum';
-// import Activity from 'src/modules/activities/typeorm/entities/Activity';
 import Schedule from 'src/modules/schedules/typeorm/entities/Schedule';
+import Service from 'src/modules/services/typeorm/entities/Service';
 
 @Entity('users')
 export default class User {
@@ -31,6 +31,9 @@ export default class User {
 
   @OneToMany(() => Schedule, schedule => schedule.user)
   schedules: Schedule[];
+
+  @OneToMany(() => Service, service => service.user)
+  service: Schedule[];
 
   @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
   created_at: Date;

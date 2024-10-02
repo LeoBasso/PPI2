@@ -4,10 +4,13 @@ import {
   PrimaryGeneratedColumn, 
   OneToMany, 
   CreateDateColumn, 
-  UpdateDateColumn 
+  UpdateDateColumn, 
+  ManyToOne,
+  JoinColumn
 } from 'typeorm';
 import { IService } from '../../domain/interfaces/IService';
 import Schedule from 'src/modules/schedules/typeorm/entities/Schedule';
+import User from 'src/modules/user/typeorm/entities/User';
 
 @Entity('services')
 class Service implements IService {
@@ -22,6 +25,13 @@ class Service implements IService {
 
   @Column()
   price: number;
+
+  @Column({ type: 'bigint' })
+  user_id: number;
+
+  @ManyToOne(() => User, user => user.service)
+  @JoinColumn({ name: 'user_id' })
+  user: User;
 
   @OneToMany(() => Schedule, schedule => schedule.service)
   schedules: Schedule[];

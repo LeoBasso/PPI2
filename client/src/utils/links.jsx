@@ -18,16 +18,17 @@ if (user?.role == 'admin') {
     },
     {
       id: 2,
-      text: 'Atividades',
+      text: 'Agendamentos',
       path: '/',
       icon: FaRunning,
     },
-    // {
-    //   id: 3,
-    //   text: 'Registrar usuário',
-    //   path: '/register',
-    //   icon: FaRunning,
-    // },
+    {
+      id: 3,
+      text: 'Serviços',
+      path: '/service',
+      icon: FaRunning,
+    },
+
   ];
 } else {
   links = [
@@ -43,6 +44,7 @@ if (user?.role == 'admin') {
       path: '/',
       icon: FaRunning,
     },
+    
   ];
 }
 export { links };

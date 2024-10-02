@@ -27,6 +27,10 @@ export class CreateServiceTable1718991698599 implements MigrationInterface {
             type: 'int',
           },
           {
+            name: 'user_id',
+            type: 'bigint',
+          },
+          {
             name: 'created_at',
             type: 'timestamp',
             default: 'CURRENT_TIMESTAMP',

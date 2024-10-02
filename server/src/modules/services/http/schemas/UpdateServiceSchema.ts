@@ -6,4 +6,7 @@ export const UpdateServiceSchema = Joi.object({
     time: Joi.number().required(),
     price: Joi.number().required(),
   }),
+  params: Joi.object({
+    id: Joi.number().required(),
+  })
 });

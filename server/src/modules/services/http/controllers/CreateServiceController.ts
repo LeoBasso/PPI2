@@ -13,6 +13,7 @@ export class CreateServiceController {
       type,
       time,
       price,
+      user_id
     };
     const service = await createService.execute(createServiceDTO);
 

@@ -3,4 +3,5 @@ export interface IService {
   type: string;
   time: number;
   price: number;
+  user_id: number;
 }

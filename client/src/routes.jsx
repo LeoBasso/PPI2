@@ -1,11 +1,12 @@
 import { Route, Routes } from "react-router-dom";
 import SharedLayout from "./pages/dashboard/SharedLayout";
 import Login from "./pages/Login";
-import Register from "./pages//dashboard/register/Register";
+import Register from "./pages/Register";
 import Error from "./pages/Error";
 import ProtectedRoute from "./pages/ProtectedRoute";
 import ActivitiesContainer from "./pages/dashboard/activities/ActivitiesContainer";
 import Profile from "./pages/dashboard/profile/profile";
+import ServicesContainer from "./pages/dashboard/services/ServicesContainer";
 
 export function AppRoutes() {
   return (
@@ -18,12 +19,13 @@ export function AppRoutes() {
           </ProtectedRoute>
         }
       >
-        
-        <Route path="/register" element={<Register />} />
+
         <Route path="/profile" element={<Profile />} />
+        <Route path="/service" element={<ServicesContainer />} />
         <Route path="/" element={<ActivitiesContainer />} />
       </Route>
-
+        
+      <Route path="register" element={<Register />} />
       <Route path="login" element={<Login />} />
       <Route path="*" element={<Error />} />
     </Routes>
