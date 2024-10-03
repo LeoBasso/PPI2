@@ -6,10 +6,11 @@ import ClearButtonForm from "../Buttons/ClearButtonForm";
 import SubmitButton from "../Buttons/SubmitButton";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { CreateServiceSchema } from "../../schemas/CreateServiceSchema";
+import { createService } from "../../queries/services/services";
 
 const CreateServiceModal = () => {
   const [isModalCreateOpen, setCreateModalOpen] = useState(false);
-  // const [selectedType, setSelectedType] = useState("");
+
   const {
     handleSubmit,
     control,
