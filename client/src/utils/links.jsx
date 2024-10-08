@@ -18,7 +18,7 @@ if (user?.role == 'admin') {
     },
     {
       id: 2,
-      text: 'Agendamentos',
+      text: 'Atividades',
       path: '/',
       icon: FaRunning,
     },
@@ -26,6 +26,12 @@ if (user?.role == 'admin') {
       id: 3,
       text: 'Serviços',
       path: '/service',
+      icon: FaRunning,
+    },
+    {
+      id: 3,
+      text: 'Meus agendamentos',
+      path: '/schedules',
       icon: FaRunning,
     },
 
@@ -42,6 +48,12 @@ if (user?.role == 'admin') {
       id: 2,
       text: 'Atividades',
       path: '/',
+      icon: FaRunning,
+    },
+    {
+      id: 3,
+      text: 'Meus agendamentos',
+      path: '/schedules',
       icon: FaRunning,
     },
     

@@ -5,7 +5,6 @@ import UpdateServiceModal from "./UpdateServiceModal";
 
 const Service = ({service}) => {
 
-  // console.log(service);
   return (
     <tr className="border-b dark:border-gray-700">
 
