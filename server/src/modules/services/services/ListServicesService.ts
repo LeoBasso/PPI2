@@ -8,18 +8,8 @@ export class ListServicesService {
     @inject('ServicesRepository')
     private servicesRepository: IServicesRepository) { }
 
-  public async execute(user_id: number): Promise<IService[]> {
-    const services = await this.servicesRepository.findAll(user_id);
-
-    // services.forEach(service => {
-    //   const date = new Date(service.date);
-    //   const formattedDate = date.toLocaleDateString('pt-BR', {
-    //     day: '2-digit',
-    //     month: '2-digit',
-    //     year: 'numeric',
-    //   });
-    //   service.date = formattedDate as any;
-    // });
+  public async execute(): Promise<IService[]> {
+    const services = await this.servicesRepository.findAll();
 
     return services;
   }

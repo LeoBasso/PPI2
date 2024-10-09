@@ -9,6 +9,7 @@ import { ScheduleTypes } from "../../arrays/ScheduleTypes";
 import { createSchedule } from "../../queries/schedules/schedules";
 import { CreateScheduleSchema } from "../../schemas/CreateScheduleSchema";
 import { useFetchServices } from "../../queries/services/services";
+import FormSelectObject from "../Form/FormSelectObject";
 
 const CreateScheduleModal = () => {
   const [isModalCreateOpen, setCreateModalOpen] = useState(false);
@@ -23,12 +24,29 @@ const CreateScheduleModal = () => {
     defaultValues: {
       date: "",
       hour: "",
-      status: "",
+      status: 'Pendente',
       service_id: "",
     },
     resolver: yupResolver(CreateScheduleSchema),
   });
 
+  const serviceOptions = services
+    ? [
+        {
+          value: '',
+          label: 'Selecione',
+        },
+        ...services.map((service) => ({
+          value: service.id,
+          label: service.type,
+        })),
+      ]
+    : [];
+
+    
+    console.log(services);
+    console.log(serviceOptions);
+    
   function openCreateModal() {
     setCreateModalOpen(true);
   }
@@ -66,7 +84,7 @@ const CreateScheduleModal = () => {
               hasError={JSON.stringify(errors.date?.message)}
             />
             <FormRow
-              type="number"
+              type="time"
               name="hour"
               labelText="Hora"
               placeholder="Digite a hora"
@@ -74,23 +92,20 @@ const CreateScheduleModal = () => {
               hasError={JSON.stringify(errors.hour?.message)}
             />
             <FormRow
-              type="select"
+              type="text"
               name="status"
               labelText="Status"
-              placeholder="Selecione"
-              options={ScheduleTypes}
+              disabled={true}
               control={control}
               hasError={JSON.stringify(errors.status?.message)}
             />
-            <FormRow
+            <FormSelectObject
               type="select"
               name="service_id"
               labelText="Serviço"
-              placeholder="Selecione o serviço"
-              options={services?.map((service) => service.type)} // Passa apenas os nomes dos serviços como opções
+              options={serviceOptions}
               control={control}
-              hasError={JSON.stringify(errors.service_id?.message)}
-              disabled={false} // Altere conforme necessário
+              // onChange={(e)=>handlerCreate(e.target.value)}
             />
           </div>
           <div className="relative inline-flex items-center justify-center">

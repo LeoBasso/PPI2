@@ -77,7 +77,7 @@ const CreateServiceModal = () => {
               labelText="Valor R$"
               placeholder="Digite o valor do serviço"
               control={control}
-              hasError={JSON.stringify(errors.elevation?.message)}
+              hasError={JSON.stringify(errors.price?.message)}
             />
           </div>
           <div className="relative inline-flex items-center justify-center">

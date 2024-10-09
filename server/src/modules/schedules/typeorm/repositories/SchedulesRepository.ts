@@ -1,6 +1,6 @@
 import { Repository, FindOneOptions } from "typeorm";
 import { dataSource } from "src/shared/typeorm/dataSource";
-import { ISchedulesRepository } from "../../domain/interfaces/ISchedulesRepository";
+import { IDate, ISchedulesRepository } from "../../domain/interfaces/ISchedulesRepository";
 import { CreateScheduleDTO } from "../../domain/dtos/CreateSchedule.dto";
 import { ISchedule } from "../../domain/interfaces/ISchedule";
 import Schedule from "../entities/Schedule";
@@ -27,6 +27,11 @@ export class SchedulesRepository implements ISchedulesRepository {
 
   public async findById(id: number): Promise<ISchedule | null> {
     const schedule = await this.ormRepository.findOneBy({id});
+    return schedule;
+  }
+
+  public async findByDate(date: IDate): Promise<ISchedule | null> {
+    const schedule = await this.ormRepository.findOneBy({hour:date.startHour});
     return schedule;
   }
   

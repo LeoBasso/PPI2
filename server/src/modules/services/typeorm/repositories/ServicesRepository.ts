@@ -21,8 +21,8 @@ export class ServicesRepository implements IServicesRepository {
     return await this.ormRepository.save(service);
   }
 
-  public async findAll(user_id:number): Promise<IService[]> {
-    return await this.ormRepository.find({where:{user_id}});
+  public async findAll(): Promise<IService[]> {
+    return await this.ormRepository.find();
   }
 
   public async findById(id: number): Promise<IService | null> {

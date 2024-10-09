@@ -15,7 +15,6 @@ const SchedulesContainer = () => {
   }
 
   const schedule = data;
-  console.log(schedule);
 
   if (schedule?.length <= 0) {
     return (
