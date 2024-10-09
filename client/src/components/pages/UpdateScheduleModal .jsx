@@ -6,13 +6,12 @@ import ClearButtonForm from "../Buttons/ClearButtonForm";
 import SubmitButton from "../Buttons/SubmitButton";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { AiOutlineEdit } from "react-icons/ai";
-import { updateActivity } from "../../queries/activities/activities";
-import { CreateActivitySchema } from "../../schemas/CreateActivitySchema";
-import { ActivityTypes } from "../../arrays/ActivityTypes";
+import { updateService } from "../../queries/services/services";
+import { CreateScheduleSchema } from "../../schemas/CreateScheduleSchema";
 
-const UpdateActivityModal = (activity) => {
+const UpdateScheduleModal = (schedule) => {
   const [isModalCreateOpen, setCreateModalOpen] = useState(false);
-console.log(activity);
+console.log(schedule);
   const {
     handleSubmit,
     control,
@@ -20,13 +19,11 @@ console.log(activity);
     formState: { errors },
   } = useForm({
     defaultValues: {
-      type: activity.value.type,
-      distance: activity.value.distance,
-      time: activity.value.time,
-      elevation: activity.value.elevation,
-      date: activity.value.date,
+      type: service.value.type,
+      time: service.value.time,
+      price: service.value.price,
     },
-    resolver: yupResolver(CreateActivitySchema),
+    resolver: yupResolver(CreateScheduleSchema),
   });
 
   function openUpdateModal() {
@@ -37,9 +34,9 @@ console.log(activity);
     setCreateModalOpen(false);
   }
 
-  const handlerUpdate = async (activities) => {
+  const handlerUpdate = async (schedules) => {
     setCreateModalOpen(false);
-    await updateActivity(activity.value.id, activities);
+    await updateService(schedule.value.id, schedules);
   };
 
   return (
@@ -48,7 +45,7 @@ console.log(activity);
         isModalOpen={isModalCreateOpen}
         openModal={openUpdateModal}
         closeModal={closeUpdateModal}
-        modalName={"Editar propriedade"}
+        modalName={"Editar Serviço"}
         colorText={"text-green-600"}
         backdrop={false}
         modalButton={<AiOutlineEdit />}
@@ -56,46 +53,29 @@ console.log(activity);
       >
         <form onSubmit={handleSubmit(handlerUpdate)}>
           <div className="grid gap-4 mb-4 sm:grid-cols-2">
-            <FormRow
-              type="select"
+          <FormRow
+              type="varchar"
               name="type"
-              labelText="Tipo de atividade"
-              placeholder="Ciclismo"
-              options={ActivityTypes}
+              labelText="Tipo de Serviço"
+              placeholder="Digite o tipo de serviço"
               control={control}
-              hasError={JSON.stringify(errors.name?.message)}
-            />
-            <FormRow
-              type="number"
-              name="distance"
-              labelText="Distância em Km"
-              placeholder="10Km"
-              control={control}
-              hasError={JSON.stringify(errors.distance?.message)}
+              hasError={JSON.stringify(errors.type?.message)}
             />
             <FormRow
               type="number"
               name="time"
-              labelText="Tempo"
-              placeholder="10 min"
+              labelText="Tempo (min)"
+              placeholder="Digite o tempo"
               control={control}
               hasError={JSON.stringify(errors.time?.message)}
             />
             <FormRow
               type="number"
-              name="elevation"
-              labelText="Ganho de Elevação"
-              placeholder="400m"
+              name="price"
+              labelText="Valor R$"
+              placeholder="Digite o valor do serviço"
               control={control}
               hasError={JSON.stringify(errors.elevation?.message)}
-            />
-            <FormRow
-              type="date"
-              name="date"
-              labelText="Data"
-              placeholder="14/04/2000"
-              control={control}
-              hasError={JSON.stringify(errors.date?.message)}
             />
           </div>
           <div className="relative inline-flex items-center justify-center">
@@ -108,4 +88,4 @@ console.log(activity);
   );
 };
 
-export default UpdateActivityModal;
+export default UpdateScheduleModal;

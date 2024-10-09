@@ -13,17 +13,11 @@ if (user?.role == 'admin') {
     {
       id: 1,
       text: 'Perfil',
-      path: '/profile',
+      path: '/',
       icon: FaUserAlt,
     },
     {
       id: 2,
-      text: 'Atividades',
-      path: '/',
-      icon: FaRunning,
-    },
-    {
-      id: 3,
       text: 'Serviços',
       path: '/service',
       icon: FaRunning,
@@ -41,14 +35,8 @@ if (user?.role == 'admin') {
     {
       id: 1,
       text: 'Perfil',
-      path: '/profile',
-      icon: FaUserAlt,
-    },
-    {
-      id: 2,
-      text: 'Atividades',
       path: '/',
-      icon: FaRunning,
+      icon: FaUserAlt,
     },
     {
       id: 3,

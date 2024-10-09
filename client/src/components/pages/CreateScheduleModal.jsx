@@ -5,7 +5,6 @@ import OpenCloseModal from "../modal/OpenCloseModal";
 import ClearButtonForm from "../Buttons/ClearButtonForm";
 import SubmitButton from "../Buttons/SubmitButton";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { ScheduleTypes } from "../../arrays/ScheduleTypes";
 import { createSchedule } from "../../queries/schedules/schedules";
 import { CreateScheduleSchema } from "../../schemas/CreateScheduleSchema";
 import { useFetchServices } from "../../queries/services/services";
@@ -105,7 +104,6 @@ const CreateScheduleModal = () => {
               labelText="Serviço"
               options={serviceOptions}
               control={control}
-              // onChange={(e)=>handlerCreate(e.target.value)}
             />
           </div>
           <div className="relative inline-flex items-center justify-center">
