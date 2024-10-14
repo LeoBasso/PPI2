@@ -6,12 +6,12 @@ import ClearButtonForm from "../Buttons/ClearButtonForm";
 import SubmitButton from "../Buttons/SubmitButton";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { AiOutlineEdit } from "react-icons/ai";
-import { updateService } from "../../queries/services/services";
-import { CreateScheduleSchema } from "../../schemas/CreateScheduleSchema";
+import { UpdateScheduleSchema } from "../../schemas/UpdateScheduleSchema";
+import { updateSchedule } from "../../queries/schedules/schedules";
 
 const UpdateScheduleModal = (schedule) => {
   const [isModalCreateOpen, setCreateModalOpen] = useState(false);
-console.log(schedule);
+  console.log(schedule);
   const {
     handleSubmit,
     control,
@@ -19,11 +19,11 @@ console.log(schedule);
     formState: { errors },
   } = useForm({
     defaultValues: {
-      type: service.value.type,
-      time: service.value.time,
-      price: service.value.price,
+      date: "",
+      hour: "",
+      status: 'Pendente',
     },
-    resolver: yupResolver(CreateScheduleSchema),
+    resolver: yupResolver(UpdateScheduleSchema),
   });
 
   function openUpdateModal() {
@@ -36,7 +36,7 @@ console.log(schedule);
 
   const handlerUpdate = async (schedules) => {
     setCreateModalOpen(false);
-    await updateService(schedule.value.id, schedules);
+    await updateSchedule(schedule.value.id, schedules);
   };
 
   return (
@@ -45,7 +45,7 @@ console.log(schedule);
         isModalOpen={isModalCreateOpen}
         openModal={openUpdateModal}
         closeModal={closeUpdateModal}
-        modalName={"Editar Serviço"}
+        modalName={"Editar Agendamento"}
         colorText={"text-green-600"}
         backdrop={false}
         modalButton={<AiOutlineEdit />}
@@ -53,29 +53,29 @@ console.log(schedule);
       >
         <form onSubmit={handleSubmit(handlerUpdate)}>
           <div className="grid gap-4 mb-4 sm:grid-cols-2">
-          <FormRow
-              type="varchar"
-              name="type"
-              labelText="Tipo de Serviço"
-              placeholder="Digite o tipo de serviço"
+            <FormRow
+              type="date"
+              name="date"
+              labelText="Data"
+              placeholder="Data"
               control={control}
-              hasError={JSON.stringify(errors.type?.message)}
+              hasError={JSON.stringify(errors.date?.message)}
             />
             <FormRow
-              type="number"
-              name="time"
-              labelText="Tempo (min)"
-              placeholder="Digite o tempo"
+              type="time"
+              name="hour"
+              labelText="Hora"
+              placeholder="Digite a hora"
               control={control}
-              hasError={JSON.stringify(errors.time?.message)}
+              hasError={JSON.stringify(errors.hour?.message)}
             />
             <FormRow
-              type="number"
-              name="price"
-              labelText="Valor R$"
-              placeholder="Digite o valor do serviço"
+              type="text"
+              name="status"
+              labelText="Status"
+              disabled={true}
               control={control}
-              hasError={JSON.stringify(errors.elevation?.message)}
+              hasError={JSON.stringify(errors.status?.message)}
             />
           </div>
           <div className="relative inline-flex items-center justify-center">

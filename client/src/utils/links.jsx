@@ -28,6 +28,12 @@ if (user?.role == 'admin') {
       path: '/schedules',
       icon: FaRunning,
     },
+    {
+      id: 4,
+      text: 'Solicitações agendamento',
+      path: '/schedulesUpdate',
+      icon: FaRunning,
+    },
 
   ];
 } else {
