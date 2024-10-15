@@ -3,9 +3,9 @@ import { ScheduleTypes } from '../../domain/enums/ScheduleTypes.enum';
 
 export const UpdateScheduleSchema = Joi.object({
   body: Joi.object({
-    status: Joi.string().valid(...Object.values(ScheduleTypes)),
-    hour: Joi.string(),
     date: Joi.date().min(4),
+    hour: Joi.string(),
+    status: Joi.string().valid(...Object.values(ScheduleTypes)),
   }),
 
   params: Joi.object({

@@ -7,7 +7,7 @@ import ProtectedRoute from "./pages/ProtectedRoute";
 import Profile from "./pages/dashboard/profile/profile";
 import ServicesContainer from "./pages/dashboard/services/ServicesContainer";
 import SchedulesContainer from "./pages/dashboard/schedules/SchedulesContainer";
-import SchedulesUpdateContainer from "./pages/dashboard/schedules/SchedulesUpdateContainer";
+import Calendar from "./components/pages/Calendar";
 
 export function AppRoutes() {
   return (
@@ -24,7 +24,7 @@ export function AppRoutes() {
         <Route path="/" element={<Profile />} />
         <Route path="/service" element={<ServicesContainer />} />
         <Route path="/schedules" element={<SchedulesContainer />} />
-        <Route path="/schedulesUpdate" element={<SchedulesUpdateContainer />} />
+        <Route path="/calendar" element={<Calendar />} />
       </Route>
         
       <Route path="register" element={<Register />} />

@@ -41,10 +41,6 @@ const CreateScheduleModal = () => {
         })),
       ]
     : [];
-
-    
-    console.log(services);
-    console.log(serviceOptions);
     
   function openCreateModal() {
     setCreateModalOpen(true);

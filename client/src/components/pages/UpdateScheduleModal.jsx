@@ -6,8 +6,9 @@ import ClearButtonForm from "../Buttons/ClearButtonForm";
 import SubmitButton from "../Buttons/SubmitButton";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { AiOutlineEdit } from "react-icons/ai";
-import { UpdateScheduleSchema } from "../../schemas/UpdateScheduleSchema";
 import { updateSchedule } from "../../queries/schedules/schedules";
+import { CreateScheduleSchema } from "../../schemas/CreateScheduleSchema";
+import { ScheduleTypes } from "../../arrays/ScheduleTypes";
 
 const UpdateScheduleModal = (schedule) => {
   const [isModalCreateOpen, setCreateModalOpen] = useState(false);
@@ -19,11 +20,11 @@ const UpdateScheduleModal = (schedule) => {
     formState: { errors },
   } = useForm({
     defaultValues: {
-      date: "",
-      hour: "",
-      status: 'Pendente',
+      date: schedule.value.date,
+      hour: schedule.value.hour,
+      status: schedule.value.status,
     },
-    resolver: yupResolver(UpdateScheduleSchema),
+    resolver: yupResolver(CreateScheduleSchema),
   });
 
   function openUpdateModal() {
@@ -57,7 +58,7 @@ const UpdateScheduleModal = (schedule) => {
               type="date"
               name="date"
               labelText="Data"
-              placeholder="Data"
+              placeholder="Escolha a data"
               control={control}
               hasError={JSON.stringify(errors.date?.message)}
             />
@@ -70,10 +71,11 @@ const UpdateScheduleModal = (schedule) => {
               hasError={JSON.stringify(errors.hour?.message)}
             />
             <FormRow
-              type="text"
+              type="select"
               name="status"
               labelText="Status"
-              disabled={true}
+              placeholder="Selecione o status"
+              options={ScheduleTypes}
               control={control}
               hasError={JSON.stringify(errors.status?.message)}
             />

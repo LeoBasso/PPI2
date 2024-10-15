@@ -1,6 +1,9 @@
 import {
-  FaRunning,
   FaUserAlt,
+  FaRegCalendarAlt,
+  FaPaintBrush,
+  FaEnvelope,
+  FaWpforms
 } from 'react-icons/fa';
 import { getUserFromLocalStorage } from './localStorage';
 
@@ -20,21 +23,20 @@ if (user?.role == 'admin') {
       id: 2,
       text: 'Serviços',
       path: '/service',
-      icon: FaRunning,
+      icon: FaPaintBrush,
     },
     {
       id: 3,
-      text: 'Meus agendamentos',
+      text: 'Gerenciar agendamentos',
       path: '/schedules',
-      icon: FaRunning,
+      icon: FaEnvelope,
     },
     {
       id: 4,
-      text: 'Solicitações agendamento',
-      path: '/schedulesUpdate',
-      icon: FaRunning,
+      text: 'Calendário',
+      path: '/calendar',
+      icon: FaRegCalendarAlt,
     },
-
   ];
 } else {
   links = [
@@ -48,7 +50,8 @@ if (user?.role == 'admin') {
       id: 3,
       text: 'Meus agendamentos',
       path: '/schedules',
-      icon: FaRunning,
+      icon: FaWpforms,
+      
     },
     
   ];
