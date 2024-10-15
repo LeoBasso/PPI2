@@ -1,15 +1,26 @@
 import { inject, injectable } from 'tsyringe';
 import { ISchedulesRepository } from '../domain/interfaces/ISchedulesRepository';
 import { ISchedule } from '../domain/interfaces/ISchedule';
+import { IUsersRepository } from 'src/modules/user/domain/interfaces/UserRepository.interfece';
 
 @injectable()
 export class ListSchedulesService {
   constructor(
     @inject('SchedulesRepository')
-    private schedulesRepository: ISchedulesRepository) { }
+    private schedulesRepository: ISchedulesRepository,
+    @inject('UsersRepository')
+    private userRepository: IUsersRepository) { }
 
-  public async execute(user_id: number): Promise<ISchedule[]> {
-    const schedules = await this.schedulesRepository.findAll(user_id);
+  public async execute(id: number): Promise<ISchedule[]> {
+    const user = await this.userRepository.findById(id);
+
+    let schedules: ISchedule[];
+
+    if (user?.role == 'admin') {
+      schedules = await this.schedulesRepository.findAll();
+    } else {
+      schedules = await this.schedulesRepository.findByUserId(user?.id);
+    }
 
     schedules.forEach(schedule => {
       const date = new Date(schedule.date);

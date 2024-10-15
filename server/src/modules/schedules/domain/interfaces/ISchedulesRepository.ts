@@ -10,8 +10,9 @@ export interface IDate {
 export interface ISchedulesRepository {
   create(createSchedule: CreateScheduleDTO): Promise<ISchedule>;
   save(createSchedule: ISchedule): Promise<ISchedule>;
-  findAll(user_id:number): Promise<ISchedule[]>;
+  findAll(): Promise<ISchedule[]>;
   findById(id: number): Promise<ISchedule | null>;
+  findByUserId(user_id:number): Promise<ISchedule[] | null>;
   findByDate(date: IDate): Promise<ISchedule | null>;
   remove(schedule: ISchedule): Promise<void>;
 }

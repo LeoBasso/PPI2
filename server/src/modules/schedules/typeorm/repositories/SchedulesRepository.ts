@@ -21,7 +21,11 @@ export class SchedulesRepository implements ISchedulesRepository {
     return await this.ormRepository.save(schedule);
   }
 
-  public async findAll(user_id:number): Promise<ISchedule[]> {
+  public async findAll(): Promise<ISchedule[]> {
+    return await this.ormRepository.find();
+  }
+
+  public async findByUserId(user_id:number): Promise<ISchedule[]> {
     return await this.ormRepository.find({where:{user_id}});
   }
 

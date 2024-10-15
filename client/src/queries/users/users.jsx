@@ -1,3 +1,4 @@
+import { useQuery } from "react-query";
 import customFetch from "../../utils/axios";
 import { toast } from "react-toastify";
 
@@ -20,3 +21,17 @@ export const login = async (userLogin) => {
     toast.error(error.response?.data.msg);
   }
 };
+
+async function getUsers() {
+  try {
+    const response = await customFetch.get('/users');
+    console.log(response);
+    return response.data;
+  } catch (error) {
+    toast.error(error.response.data.msg);
+  }
+}
+
+export function useFetchUsers() {
+  return useQuery(['users'], getUsers);
+}

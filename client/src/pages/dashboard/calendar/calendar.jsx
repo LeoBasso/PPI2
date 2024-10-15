@@ -1,103 +1,49 @@
-import { useState } from "react";
-import CreateScheduleModal from "../../../components/pages/CreateScheduleModal";
-import Schedules from "../../../components/pages/Schedules";
-import { useFetchSchedules } from "../../../queries/schedules/schedules";
-import { getUserFromLocalStorage } from "../../../utils/localStorage";
+import React, { useState, useEffect } from 'react';
+import { Calendar, momentLocalizer } from 'react-big-calendar';
+import moment from 'moment';
+import 'react-big-calendar/lib/css/react-big-calendar.css';
 
-const SchedulesContainer = () => {
-  const { data, error, isLoading } = useFetchSchedules();
+const localizer = momentLocalizer(moment); // Set up the localizer
 
-  if (isLoading) {
-    return <div>Carregando...</div>;
-  }
+const App = () => {
+  const [events, setEvents] = useState([]);
 
-  if (error) {
-    return <div>Erro ao carregar seus agendamentos: {error.message}</div>;
-  }
+  useEffect(() => {
+    // Exemplo de eventos iniciais
+    setEvents([
+      {
+        start: new Date(2024, 9, 15, 10, 0), // 15 de outubro, 10h
+        end: new Date(2024, 9, 15, 12, 0), // 15 de outubro, 12h
+        title: 'Reunião com a equipe',
+      },
+      {
+        start: new Date(2024, 9, 16, 14, 0), // 16 de outubro, 14h
+        end: new Date(2024, 9, 16, 15, 0), // 16 de outubro, 15h
+        title: 'Chamada com cliente',
+      },
+    ]);
+  }, []);
 
-  const schedule = data;
-
-  const user = getUserFromLocalStorage();
-
-  if (schedule?.length <= 0) {
-    return (
-      <div className="flex">
-        <section>
-          <div className="mx-auto max-w-screen-xl ">
-            <div className="bg-[#1c1917] relative shadow-md sm:rounded-lg overflow-hidden border border-gray-500">
-              <div className="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
-                {user?.role == 'user' && (
-                  <div className="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center md:space-x-3 flex-shrink-0">
-                    <CreateScheduleModal />
-                    <h6>Nenhum agendamento encontrado</h6>
-                  </div>)}
-              </div>
-            </div>
-          </div>
-        </section>
-      </div>
-    );
-  }
+  const handleSelect = ({ start, end }) => {
+    const title = window.prompt('Novo evento:');
+    if (title) {
+      setEvents([...events, { start, end, title }]);
+    }
+  };
 
   return (
-    <div className="flex">
-      <section>
-        <div className="max-w-screen-xl">
-          <div className="bg-[#1c1917] relative shadow-md sm:rounded-lg overflow-hidden border border-gray-400">
-            <div className="flex flex-col md:flex-row items-center justify-between space-y-3 md:space-y-0 md:space-x-4 p-4">
-              {user?.role == 'user' && (
-                <div className="w-full md:w-auto flex flex-col md:flex-row space-y-2 md:space-y-0 items-stretch md:items-center md:space-x-3 flex-shrink-0">
-                  <CreateScheduleModal />
-                </div>)}
-            </div>
-            <div className="mx-auto">
-              <table className="w-full text-sm text-left text-gray-500 border-gray-300">
-                <thead className="text-xs text-white uppercase bg-[#09090b] border-gray-300">
-                  <tr>
-                    {user?.role == 'admin' && (
-                      <th scope="col" className="px-4 py-4">
-                        Nome do cliente
-                      </th>)}
-                    <th scope="col" className="px-4 py-4">
-                      Serviço
-                    </th>
-                    <th scope="col" className="px-4 py-3">
-                      Hora
-                    </th>
-                    <th scope="col" className="px-4 py-3">
-                      Data
-                    </th>
-                    <th scope="col" className="px-4 py-3">
-                      Valor
-                    </th>
-                    <th scope="col" className="px-4 py-3">
-                      Status
-                    </th>
-                    {user?.role == 'admin' && (
-                      <th scope="col" className="px-4 py-4">
-                        Editar
-                      </th>)}
-                      {user?.role == 'admin' && (
-                      <th scope="col" className="px-4 py-4">
-                        Excluir
-                      </th>)}
-                  </tr>
-                </thead>
-                <tbody className="bg-[#d6d3d1] text-black">
-                  {schedule?.map((schedule) => (
-                    <Schedules
-                      key={schedule.id}
-                      schedule={schedule}
-                    />
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </div>
-      </section>
+    <div style={{ height: '100vh', padding: '20px' }}>
+      <Calendar
+        localizer={localizer}
+        events={events}
+        startAccessor="start"
+        endAccessor="end"
+        style={{ height: 600, margin: '50px' }}
+        onSelectSlot={handleSelect} // Adiciona um evento ao clicar em um slot
+        selectable
+      />
     </div>
   );
 };
 
-export default SchedulesContainer;
+export default App;
