@@ -53,7 +53,7 @@ function Login() {
           type="email"
           name="email"
           labelText="Email"
-          placeholder="teste@testecom"
+          placeholder="exemplo@gmail.com"
           control={control}
           hasError={JSON.stringify(errors.email?.message)}
         />

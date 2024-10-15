@@ -10,16 +10,16 @@ const App = () => {
 
   useEffect(() => {
     setEvents([
-    //   {
-    //     start: new Date(2024, 9, 15, 10, 0), // 15 de outubro, 10h
-    //     end: new Date(2024, 9, 15, 12, 0), // 15 de outubro, 12h
-    //     title: 'Reunião com a equipe',
-    //   },
-    //   {
-    //     start: new Date(2024, 9, 16, 14, 0), // 16 de outubro, 14h
-    //     end: new Date(2024, 9, 16, 15, 0), // 16 de outubro, 15h
-    //     title: 'Chamada com cliente',
-    //   },
+      {
+        start: new Date(2024, 9, 15, 10, 0), // 15 de outubro, 10h
+        end: new Date(2024, 9, 15, 12, 0), // 15 de outubro, 12h
+        title: 'Reunião com a equipe',
+      },
+      {
+        start: new Date(2024, 9, 16, 14, 0), // 16 de outubro, 14h
+        end: new Date(2024, 9, 16, 15, 0), // 16 de outubro, 15h
+        title: 'Chamada com cliente',
+      },
     ]);
   }, []);
 
