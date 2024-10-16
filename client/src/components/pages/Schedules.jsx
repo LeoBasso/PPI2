@@ -1,9 +1,9 @@
 import { useEffect } from "react";
 import { useFetchServices } from "../../queries/services/services";
+import { useFetchUsers } from "../../queries/users/users";
 import { getUserFromLocalStorage } from "../../utils/localStorage";
 import UpdateScheduleModal from "./UpdateScheduleModal";
 import DeleteScheduleModal from "./DeleteScheduleModal";
-import { useFetchUsers } from "../../queries/users/users";
 
 const Schedules = ({ schedule }) => {
   const { data: services } = useFetchServices();
