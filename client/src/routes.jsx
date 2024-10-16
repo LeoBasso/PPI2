@@ -7,7 +7,7 @@ import ProtectedRoute from "./pages/ProtectedRoute";
 import Profile from "./pages/dashboard/profile/profile";
 import ServicesContainer from "./pages/dashboard/services/ServicesContainer";
 import SchedulesContainer from "./pages/dashboard/schedules/SchedulesContainer";
-import Calendar from "./components/pages/Calendar";
+import Calendar from "./pages/dashboard/calendar/calendar";
 
 export function AppRoutes() {
   return (

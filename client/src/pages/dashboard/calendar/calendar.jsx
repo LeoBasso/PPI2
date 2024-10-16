@@ -1,49 +1,20 @@
-import React, { useState, useEffect } from 'react';
-import { Calendar, momentLocalizer } from 'react-big-calendar';
-import moment from 'moment';
-import 'react-big-calendar/lib/css/react-big-calendar.css';
+import React from "react";
+import ScheduleCalendar from "../../../components/pages/ScheduleCalendar";
+import { useFetchSchedules } from "../../../queries/schedules/schedules";
 
-const localizer = momentLocalizer(moment); // Set up the localizer
-
-const App = () => {
-  const [events, setEvents] = useState([]);
-
-  useEffect(() => {
-    // Exemplo de eventos iniciais
-    setEvents([
-      {
-        start: new Date(2024, 9, 15, 10, 0), // 15 de outubro, 10h
-        end: new Date(2024, 9, 15, 12, 0), // 15 de outubro, 12h
-        title: 'Reunião com a equipe',
-      },
-      {
-        start: new Date(2024, 9, 16, 14, 0), // 16 de outubro, 14h
-        end: new Date(2024, 9, 16, 15, 0), // 16 de outubro, 15h
-        title: 'Chamada com cliente',
-      },
-    ]);
-  }, []);
-
-  const handleSelect = ({ start, end }) => {
-    const title = window.prompt('Novo evento:');
-    if (title) {
-      setEvents([...events, { start, end, title }]);
-    }
-  };
+const Calendar = () => {
+  const { data: schedules } = useFetchSchedules();
 
   return (
-    <div style={{ height: '100vh', padding: '20px' }}>
-      <Calendar
-        localizer={localizer}
-        events={events}
-        startAccessor="start"
-        endAccessor="end"
-        style={{ height: 600, margin: '50px' }}
-        onSelectSlot={handleSelect} // Adiciona um evento ao clicar em um slot
-        selectable
-      />
+    <div>
+      <h1 className="text-xl font-bold mb-10">Calendário de Agendamentos</h1>
+      {schedules ? (
+        <ScheduleCalendar schedules={schedules} />
+      ) : (
+        <p>Carregando agendamentos...</p>
+      )}
     </div>
   );
 };
 
-export default App;
+export default Calendar;
