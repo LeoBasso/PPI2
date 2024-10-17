@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
-import "react-big-calendar/lib/css/react-big-calendar.css";
+// import "react-big-calendar/lib/css/react-big-calendar.css";
+import './custom-calendar.css';
+
 import { useFetchServices } from "../../queries/services/services";
 import { useFetchUsers } from "../../queries/users/users";
 
@@ -15,7 +17,7 @@ const ScheduleCalendar = ({ schedules }) => {
   useEffect(() => {
     if (schedules && services && users) {
       const mappedEvents = schedules
-        .filter(schedule => schedule.status === 'Aceito') // Filtra apenas os agendamentos com status 'aceito'
+        .filter(schedule => schedule.status === 'Aceito')
         .map(schedule => {
           const service = services.find(service => service?.id === schedule?.service_id);
           const scheduleUser = users.find(u => u.id === schedule?.user_id);

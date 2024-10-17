@@ -6,8 +6,7 @@ const Calendar = () => {
   const { data: schedules } = useFetchSchedules();
 
   return (
-    <div>
-      <h1 className="text-xl font-bold mb-10">Calendário de Agendamentos</h1>
+    <div className="mb-10 mt-10">
       {schedules ? (
         <ScheduleCalendar schedules={schedules} />
       ) : (

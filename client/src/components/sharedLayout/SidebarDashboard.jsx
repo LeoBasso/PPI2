@@ -13,9 +13,9 @@ const SidebarDashboard = () => {
   const user = getUserFromLocalStorage();
 
   return (
-    <section className="bg-[#1c1917]">
+    <section className="bg-[#363636]">
       <div
-        className={`bg-[#1c1917] min-h-screen  ${
+        className={`bg-[#363636] min-h-screen  ${
           open ? "w-64" : "w-16"
         } duration-500 text-white px-4`}
       >
@@ -44,8 +44,8 @@ const SidebarDashboard = () => {
               key={i}
               className={`${
                 menu?.margin && "mt-5"
-              } group flex items-center text-sm gap-3.5 font-medium p-2 hover:bg-[#fed7aa] rounded-md ${
-                location.pathname === menu?.path ? "bg-[#f97316]" : ""
+              } group flex items-center text-sm gap-3.5 font-medium p-2 hover:bg-[#6e776e] rounded-md ${
+                location.pathname === menu?.path ? "bg-[#5A7458]" : ""
               }`}
             >
               <div>{React.createElement(menu?.icon, { size: "20" })}</div>

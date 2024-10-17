@@ -26,14 +26,13 @@ const DropDown = () => {
       <button
         id="dropdownAvatarNameButton"
         onClick={toggleDropDown}
-        className="flex items-center text-sm font-medium text-orange-500 rounded-full hover:text-orange-700 md:mr-0 mt-12 pr-8"
+        className="flex items-center text-sm font-medium text-gray-600 rounded-full hover:text-orange-700 md:mr-0 mt-12 pr-8"
         type="button"
       >
         <Avatar alt="User settings" img="" rounded stacked />
         <svg
-          className={`w-2.5 h-2.5 ml-2.5 transform ${
-            isDropDownOpen ? "rotate-180" : "rotate-0"
-          }`}
+          className={`w-2.5 h-2.5 ml-2.5 transform ${isDropDownOpen ? "rotate-180" : "rotate-0"
+            }`}
           aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           fill="none"
@@ -50,27 +49,27 @@ const DropDown = () => {
       </button>
       <div
         id="dropdownAvatarName"
-        className={`${
-          isDropDownOpen ? "block" : "hidden"
-        } absolute z-10 bg-[#1c1917] divide-y divide-gray-100 rounded-lg shadow w-44 mt-2 right-0`}
+        className={`${isDropDownOpen ? "block" : "hidden"
+          } absolute z-10 bg-[#363636] divide-y divide-gray-100 rounded-lg shadow w-44 mt-2 right-0`}
       >
         <div className="px-4 py-3 text-sm text-white">
           <div className="font-medium">{user.name}</div>
-          <div className="truncate mt-2">{user.email}</div>
+          <div className="font-small">{user.email}</div>
         </div>
         <ul
-          className="py-2 text-sm text-white hover:bg-[#f97316]"
+          className="py-2 text-sm text-white hover:bg-[#6e776e]"
           aria-labelledby="dropdownInformdropdownAvatarNameButtonationButton"
         >
           <li>
-            <a href="/profile" className="block hover:text-black">
+            <a href="/" className="block">
               Perfil
             </a>
           </li>
         </ul>
-        <div className="py-2 text-sm text-white hover:bg-[#f97316]">
-          <button onClick={logout}>Sair</button>
-        </div>
+        <div
+          className="py-2 text-sm text-white hover:rounded-b-lg hover:bg-[#6e776e] cursor-pointer"
+          onClick={logout}>Sair</div>
+
       </div>
     </div>
   );
