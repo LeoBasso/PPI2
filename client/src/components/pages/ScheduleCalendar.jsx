@@ -14,27 +14,29 @@ const ScheduleCalendar = ({ schedules }) => {
 
   useEffect(() => {
     if (schedules && services && users) {
-      const mappedEvents = schedules.map(schedule => {
-        const service = services.find(service => service?.id === schedule?.service_id);
-        const scheduleUser = users.find(u => u.id === schedule?.user_id);
+      const mappedEvents = schedules
+        .filter(schedule => schedule.status === 'Aceito') // Filtra apenas os agendamentos com status 'aceito'
+        .map(schedule => {
+          const service = services.find(service => service?.id === schedule?.service_id);
+          const scheduleUser = users.find(u => u.id === schedule?.user_id);
 
-        // Função auxiliar para formatar a data de DD/MM/YYYY para YYYY-MM-DD
-        const formatDate = (date) => {
-          const [day, month, year] = date.split('/');
-          return `${year}-${month}-${day}`;
-        };
+          // Função auxiliar para formatar a data de DD/MM/YYYY para YYYY-MM-DD
+          const formatDate = (date) => {
+            const [day, month, year] = date.split('/');
+            return `${year}-${month}-${day}`;
+          };
 
-        return {
-          title: `${service?.type} - ${scheduleUser?.name}`,
-          start: new Date(`${formatDate(schedule.date)}T${schedule.hour.padStart(2, '0')}:00`), // Combina a data e hora
-          end: (() => {
-            const startDate = new Date(`${formatDate(schedule.date)}T${schedule.hour.padStart(2, '0')}:00`);
-            const durationMinutes = service?.time;
-            const endDate = new Date(startDate.getTime() + durationMinutes * 60000);
-            return endDate;
-          })(),
-        };
-      });
+          return {
+            title: `${service?.type} - ${scheduleUser?.name}`,
+            start: new Date(`${formatDate(schedule.date)}T${schedule.hour.padStart(2, '0')}:00`), // Combina a data e hora
+            end: (() => {
+              const startDate = new Date(`${formatDate(schedule.date)}T${schedule.hour.padStart(2, '0')}:00`);
+              const durationMinutes = service?.time;
+              const endDate = new Date(startDate.getTime() + durationMinutes * 60000);
+              return endDate;
+            })(),
+          };
+        });
       setEvents(mappedEvents);
     }
 
@@ -51,4 +53,3 @@ const ScheduleCalendar = ({ schedules }) => {
 };
 
 export default ScheduleCalendar;
-
