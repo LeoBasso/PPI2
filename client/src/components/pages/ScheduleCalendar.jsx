@@ -1,13 +1,22 @@
 import { useEffect, useState } from "react";
-import { Calendar, momentLocalizer } from "react-big-calendar";
-import moment from "moment";
-// import "react-big-calendar/lib/css/react-big-calendar.css";
+import { Calendar, dateFnsLocalizer } from "react-big-calendar";
+import { format, parse, startOfWeek, getDay } from "date-fns";
+import ptBR from "date-fns/locale/pt-BR";
 import './custom-calendar.css';
-
 import { useFetchServices } from "../../queries/services/services";
 import { useFetchUsers } from "../../queries/users/users";
 
-const localizer = momentLocalizer(moment);
+const locales = {
+  'pt-BR': ptBR,
+};
+
+const localizer = dateFnsLocalizer({
+  format,
+  parse,
+  startOfWeek: () => startOfWeek(new Date(), { locale: ptBR }),
+  getDay,
+  locales,
+});
 
 const ScheduleCalendar = ({ schedules }) => {
   const [events, setEvents] = useState([]);
@@ -22,7 +31,6 @@ const ScheduleCalendar = ({ schedules }) => {
           const service = services.find(service => service?.id === schedule?.service_id);
           const scheduleUser = users.find(u => u.id === schedule?.user_id);
 
-          // Função auxiliar para formatar a data de DD/MM/YYYY para YYYY-MM-DD
           const formatDate = (date) => {
             const [day, month, year] = date.split('/');
             return `${year}-${month}-${day}`;
@@ -41,17 +49,35 @@ const ScheduleCalendar = ({ schedules }) => {
         });
       setEvents(mappedEvents);
     }
-
   }, [schedules, services, users]);
+
+  const messages = {
+    allDay: 'Dia inteiro',
+    previous: 'Anterior',
+    next: 'Próximo',
+    today: 'Hoje',
+    month: 'Mês',
+    week: 'Semana',
+    day: 'Dia',
+    agenda: 'Agenda',
+    date: 'Data',
+    time: 'Hora',
+    event: 'Evento',
+    noEventsInRange: 'Nenhum evento neste período.',
+    showMore: total => `+ Ver mais (${total})`
+  };
 
   return (
     <div style={{ height: 600 }}>
       <Calendar
         localizer={localizer}
         events={events}
+        messages={messages}
+        culture="pt-BR"  
       />
     </div>
   );
 };
 
 export default ScheduleCalendar;
+ 

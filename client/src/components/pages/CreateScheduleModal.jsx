@@ -86,14 +86,6 @@ const CreateScheduleModal = () => {
               control={control}
               hasError={JSON.stringify(errors.hour?.message)}
             />
-            <FormRow
-              type="text"
-              name="status"
-              labelText="Status"
-              disabled={true}
-              control={control}
-              hasError={JSON.stringify(errors.status?.message)}
-            />
             <FormSelectObject
               type="select"
               name="service_id"
