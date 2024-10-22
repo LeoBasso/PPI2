@@ -41,7 +41,7 @@ function Login() {
 
   return (
     <form
-      className="flex h-screen items-center justify-center bg-[#f3f0e2]"
+      className="flex h-screen items-center justify-center bg-[#fff7ed]"
       onSubmit={handleSubmit(handlerLogin)}
     >
       <div

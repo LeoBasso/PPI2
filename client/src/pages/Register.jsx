@@ -28,7 +28,7 @@ const RegisterCard = () => {
   };
 
   return (
-    <form className="flex h-screen items-center justify-center bg-[#f3f0e2]"
+    <form className="flex h-screen items-center justify-center bg-[#fff7ed]"
       onSubmit={handleSubmit(handlerCreateUser)}
     >
       <div
