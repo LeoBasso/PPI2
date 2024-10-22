@@ -1,9 +1,5 @@
 import { useState } from "react";
 import { Controller } from "react-hook-form";
-import {
-  HiOutlineArrowNarrowDown,
-  HiOutlineArrowNarrowUp,
-} from "react-icons/hi";
 
 const FormRow = ({
   type,

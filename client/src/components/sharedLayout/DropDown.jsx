@@ -26,7 +26,7 @@ const DropDown = () => {
       <button
         id="dropdownAvatarNameButton"
         onClick={toggleDropDown}
-        className="flex items-center text-sm font-medium text-gray-600 rounded-full hover:text-orange-700 md:mr-0 mt-12 pr-8"
+        className="flex items-center text-sm font-medium text-gray-600 rounded-full hover:text-[525252] md:mr-0 mt-12 pr-8"
         type="button"
       >
         <Avatar alt="User settings" img="" rounded stacked />
@@ -50,7 +50,7 @@ const DropDown = () => {
       <div
         id="dropdownAvatarName"
         className={`${isDropDownOpen ? "block" : "hidden"
-          } absolute z-10 bg-[#363636] divide-y divide-gray-100 rounded-lg shadow w-44 mt-2 right-0`}
+          } absolute z-10 bg-[#525252] divide-y divide-gray-100 rounded-lg shadow w-44 mt-2 right-0`}
       >
         <div className="px-4 py-3 text-sm text-white">
           <div className="font-medium">{user.name}</div>

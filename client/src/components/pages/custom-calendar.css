@@ -98,7 +98,7 @@ button.rbc-input::-moz-focus-inner {
   z-index: 4;
 }
 .rbc-today {
-  background-color: #e6efdb;
+  background-color: #6e776e1f;
 }
 .rbc-toolbar {
   display: -webkit-flex;
@@ -203,7 +203,7 @@ button.rbc-input::-moz-focus-inner {
   box-shadow: none;
   margin: 0;
   padding: 2px 5px;
-  background-color: #688568;
+  background-color: #6e776e;
   border-radius: 2px;
   color: #fff;
   cursor: pointer;
@@ -215,10 +215,10 @@ button.rbc-input::-moz-focus-inner {
   pointer-events: none;
 }
 .rbc-event.rbc-selected {
-  background-color: #6e776e;
+  background-color: #6e776e83;
 }
 .rbc-event:focus {
-  outline: 0px auto #6e776e;
+  outline: 0px auto #6e776e83;
 }
 .rbc-event-label {
   font-size: 80%;

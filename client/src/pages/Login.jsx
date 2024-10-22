@@ -41,12 +41,15 @@ function Login() {
 
   return (
     <form
-      className="flex h-screen items-center justify-center bg-[#09090b]"
+      className="flex h-screen items-center justify-center bg-[#f3f0e2]"
       onSubmit={handleSubmit(handlerLogin)}
     >
-      <div className="w-full max-w-sm p-4 bg-gray-400 border-2 border-green-500 rounded-lg shadow-md sm:p-6 md:p-8">
-        <h5 className="text-xl font-medium text-gray-900">
-          Faça login na plataforma
+      <div
+        className="w-full max-w-sm p-4  shadow-2xl sm:p-6 md:p-8"
+        style={{ background: 'linear-gradient(to right, #d9d6c8, #6e776e)' }}
+      >
+        <h5 className="text-xl font-medium text-white">
+          FAÇA LOGIN
         </h5>
         <br />
         <FormRow
@@ -74,7 +77,7 @@ function Login() {
         <div className="text-sm font-medium text-black mt-4 ">
           Não é registrado?
           <Link
-            className="text-orange-700 hover:underline ml-2"
+            className="text-white hover:underline ml-2"
             onClick={() => reset()}
             to="/register"
           >
