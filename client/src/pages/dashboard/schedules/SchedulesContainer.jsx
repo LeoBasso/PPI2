@@ -77,6 +77,10 @@ const SchedulesContainer = () => {
                       Status
                     </th>
                     {user?.role == 'admin' && (
+                    <th scope="col" className="px-4 py-3 text-center" colSpan="2">
+                      Ações
+                    </th>)}
+                    {user?.role == 'admin' && (
                       <th scope="col" className="px-4 py-4">
                         Editar
                       </th>)}

@@ -32,8 +32,6 @@ export class UpdateScheduleService {
       response.date, 
       response.hour,
       response.status, 
-      response.service_id,
-      response.user_id,
     );
   }
 }

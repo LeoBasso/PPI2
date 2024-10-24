@@ -22,7 +22,6 @@ const UpdateScheduleModal = (schedule) => {
     defaultValues: {
       date: schedule.value.date,
       hour: schedule.value.hour,
-      status: schedule.value.status,
     },
     resolver: yupResolver(CreateScheduleSchema),
   });
@@ -69,15 +68,6 @@ const UpdateScheduleModal = (schedule) => {
               placeholder="Digite a hora"
               control={control}
               hasError={JSON.stringify(errors.hour?.message)}
-            />
-            <FormRow
-              type="select"
-              name="status"
-              labelText="Status"
-              placeholder="Selecione o status"
-              options={ScheduleTypes}
-              control={control}
-              hasError={JSON.stringify(errors.status?.message)}
             />
           </div>
           <div className="relative inline-flex items-center justify-center">
