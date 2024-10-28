@@ -36,7 +36,7 @@ export default function DeleteScheduleModal(schedule) {
             isOpen={isModalDeleteOpen}
             onCancel={closeDeleteModal}
             onConfirm={handlerDelete}
-            message="Tem certeza que deseja excluir esse serviço?"
+            message="Tem certeza que deseja excluir esse agendamento?"
           />
         </OpenCloseModal>
       </div>

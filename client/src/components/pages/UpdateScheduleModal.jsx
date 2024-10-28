@@ -70,10 +70,10 @@ const UpdateScheduleModal = (schedule) => {
               hasError={JSON.stringify(errors.hour?.message)}
             />
           </div>
-          <div className="relative inline-flex items-center justify-center">
-            <ClearButtonForm onClick={() => reset()} />
-            <SubmitButton label="Enviar" />
-          </div>
+          <div className="flex justify-center">
+          <ClearButtonForm onClick={() => reset()} />
+          <SubmitButton label="Enviar" />
+        </div>
         </form>
       </OpenCloseModal>
     </div>

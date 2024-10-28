@@ -11,7 +11,7 @@ import { CreateServiceSchema } from "../../schemas/CreateServiceSchema";
 
 const UpdateServiceModal = (service) => {
   const [isModalCreateOpen, setCreateModalOpen] = useState(false);
-console.log(service);
+  console.log(service);
   const {
     handleSubmit,
     control,
@@ -53,7 +53,7 @@ console.log(service);
       >
         <form onSubmit={handleSubmit(handlerUpdate)}>
           <div className="grid gap-4 mb-4 sm:grid-cols-2">
-          <FormRow
+            <FormRow
               type="varchar"
               name="type"
               labelText="Tipo de Serviço"
@@ -78,7 +78,7 @@ console.log(service);
               hasError={JSON.stringify(errors.elevation?.message)}
             />
           </div>
-          <div className="relative inline-flex items-center justify-center">
+          <div className="flex justify-center">
             <ClearButtonForm onClick={() => reset()} />
             <SubmitButton label="Enviar" />
           </div>
