@@ -17,6 +17,7 @@ const ProfileCard = (user) => {
         defaultValues: {
             name: user.user.name,
             email: user.user.email,
+            number: user.user.number,
         },
         resolver: yupResolver(UpdateProfileSchema),
     });
@@ -28,6 +29,7 @@ const ProfileCard = (user) => {
         const updatedUser = {
             name: profile.name,
             email: profile.email,
+            number: profile.number,
             id: user.user.id,
             role: user.user.role,
         };
@@ -39,7 +41,7 @@ const ProfileCard = (user) => {
     return (
         <div className="flex items-center justify-center">
             <form onSubmit={handleSubmit(handlerUpdateProfile)}>
-                <div className="grid gap-4 mb-4 sm:grid-cols-2">
+                <div className="grid gap-4 mb-4 sm:grid-cols-1">
                     <FormRow
                         type="text"
                         name="name"
@@ -55,6 +57,14 @@ const ProfileCard = (user) => {
                         placeholder="Digite seu e-mail"
                         control={control}
                         hasError={JSON.stringify(errors.email?.message)}
+                    />
+                    <FormRow
+                        type="tel"
+                        name="number"
+                        labelText="Número"
+                        placeholder="Digite seu número"
+                        control={control}
+                        hasError={JSON.stringify(errors.number?.message)}
                     />
                 </div>
                 <div className="relative inline-flex items-center justify-center">

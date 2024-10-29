@@ -15,11 +15,12 @@ export default class UpdateProfileController {
     public async update(request: Request, response: Response): Promise<Response> {
 
         const user_id = request.user.id;
-        const { name, email } = request.body;
+        const { name, email, number } = request.body;
         const updateProfileDTO: UpdateProfileDTO = {
             id: user_id,
             name,
             email,
+            number
         };
 
         const updateProfile = container.resolve(UpdateProfileService);

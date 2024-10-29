@@ -27,6 +27,6 @@ export class CreateUserService {
 
     const response = await this.usersRepository.create(createUser);
 
-    return new UserRespondeDTO(response.id, response.name, response.email, response.role);
+    return new UserRespondeDTO(response.id, response.name, response.email, response.number, response.role);
   }
 }

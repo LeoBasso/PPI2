@@ -39,7 +39,7 @@ export class UpdateProfileService {
             expiresIn: process.env.JWT_LIFETIME,
           });
       
-          const userResponseDTO = new UserRespondeDTO(user.id, user.name, user.email, user.role);
+          const userResponseDTO = new UserRespondeDTO(user.id, user.name, user.email, user.number, user.role);
           return new LoginRespondeDTO(userResponseDTO, token);
     }
 }

@@ -7,5 +7,6 @@ export const CreateUserSchema = Joi.object({
     email: Joi.string()
       .required()
       .email({ minDomainSegments: 2, tlds: { allow: ['com', 'net'] } }),
+    number: Joi.string().required().min(10).max(15)
   }),
 });

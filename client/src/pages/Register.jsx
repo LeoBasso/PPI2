@@ -17,6 +17,7 @@ const RegisterCard = () => {
     defaultValues: {
       name: '',
       email: '',
+      number: '',
       password: '',
     },
     resolver: yupResolver(CreateUserSchema),
@@ -55,6 +56,15 @@ const RegisterCard = () => {
           placeholder="Digite o e-mail"
           control={control}
           hasError={JSON.stringify(errors.email?.message)}
+        />
+        <br />
+        <FormRow
+          type="tel"
+          name="number"
+          labelText="Número"
+          placeholder="Digite o Número"
+          control={control}
+          hasError={JSON.stringify(errors.number?.message)}
         />
         <br />
         <FormRow
