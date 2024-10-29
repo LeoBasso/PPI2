@@ -15,11 +15,13 @@ const Schedules = ({ schedule }) => {
   const scheduleUser = users?.find(u => u.id === schedule?.user_id);
 
   const handleAccept = async () => {
-    await updateSchedule(schedule?.id, { ...schedule, status: 'Aceito' });
+      const updatedSchedule = { id: schedule?.id, status: 'Aceito',
+      }; await updateSchedule(schedule?.id, updatedSchedule);
   };
 
   const handleReject = async () => {
-    await updateSchedule(schedule?.id, { ...schedule, status: 'Recusado' });
+      const updatedSchedule = {id: schedule?.id, status: 'Recusado',
+      }; await updateSchedule(schedule?.id, updatedSchedule);
   };
 
   return (
@@ -61,8 +63,6 @@ const Schedules = ({ schedule }) => {
           )}
         </>
       )}
-
-
       {user?.role === 'admin' && (
         <td className="px-6 py-4">
           <UpdateScheduleModal value={schedule} />

@@ -10,6 +10,6 @@ const root = createRoot(container);
 
 root.render(
   <QueryClientProvider client={queryClient}>
-    <App tab="home" />s
+    <App tab="home" />
   </QueryClientProvider>
 );
