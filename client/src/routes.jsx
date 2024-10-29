@@ -8,6 +8,7 @@ import Profile from "./pages/dashboard/profile/profile";
 import ServicesContainer from "./pages/dashboard/services/ServicesContainer";
 import SchedulesContainer from "./pages/dashboard/schedules/SchedulesContainer";
 import Calendar from "./pages/dashboard/calendar/calendar";
+import UsersContainer from "./pages/dashboard/users/UsersContainer";
 
 export function AppRoutes() {
   return (
@@ -25,6 +26,7 @@ export function AppRoutes() {
         <Route path="/service" element={<ServicesContainer />} />
         <Route path="/schedules" element={<SchedulesContainer />} />
         <Route path="/calendar" element={<Calendar />} />
+        <Route path="/users" element={<UsersContainer />} />
       </Route>
         
       <Route path="register" element={<Register />} />

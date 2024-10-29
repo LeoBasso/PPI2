@@ -3,7 +3,8 @@ import {
   FaRegCalendarAlt,
   FaPaintBrush,
   FaEnvelope,
-  FaWpforms
+  FaWpforms,
+  FaUsers
 } from 'react-icons/fa';
 import { getUserFromLocalStorage } from './localStorage';
 
@@ -21,18 +22,24 @@ if (user?.role == 'admin') {
     },
     {
       id: 2,
+      text: 'Usuários do sistema',
+      path: '/users',
+      icon: FaUsers,
+    },
+    {
+      id: 3,
       text: 'Serviços',
       path: '/service',
       icon: FaPaintBrush,
     },
     {
-      id: 3,
+      id: 4,
       text: 'Gerenciar agendamentos',
       path: '/schedules',
       icon: FaEnvelope,
     },
     {
-      id: 4,
+      id: 5,
       text: 'Calendário',
       path: '/calendar',
       icon: FaRegCalendarAlt,
