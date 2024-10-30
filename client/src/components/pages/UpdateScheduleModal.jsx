@@ -8,7 +8,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { AiOutlineEdit } from "react-icons/ai";
 import { updateSchedule } from "../../queries/schedules/schedules";
 import { CreateScheduleSchema } from "../../schemas/CreateScheduleSchema";
-import { ScheduleTypes } from "../../arrays/ScheduleTypes";
+import FormSchedule from "../Form/FormSchedule"; // Importar o componente personalizado
 
 const UpdateScheduleModal = (schedule) => {
   const [isModalCreateOpen, setCreateModalOpen] = useState(false);
@@ -61,19 +61,17 @@ const UpdateScheduleModal = (schedule) => {
               control={control}
               hasError={JSON.stringify(errors.date?.message)}
             />
-            <FormRow
-              type="time"
+            <FormSchedule
               name="hour"
               labelText="Hora"
-              placeholder="Digite a hora"
               control={control}
-              hasError={JSON.stringify(errors.hour?.message)}
+              errors={errors}
             />
           </div>
           <div className="flex justify-center">
-          <ClearButtonForm onClick={() => reset()} />
-          <SubmitButton label="Enviar" />
-        </div>
+            <ClearButtonForm onClick={() => reset()} />
+            <SubmitButton label="Enviar" />
+          </div>
         </form>
       </OpenCloseModal>
     </div>

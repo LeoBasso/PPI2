@@ -35,3 +35,12 @@ async function getUsers() {
 export function useFetchUsers() {
   return useQuery(['users'], getUsers);
 }
+
+export const updateUser = async (id, user) => {
+  try {
+    await customFetch.put(`/users/${id}`, user);
+    toast.success("Usuário atualizado com sucesso!");
+  } catch (error) {
+    toast.error(error.response.data.msg);
+  }
+};

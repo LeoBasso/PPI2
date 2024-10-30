@@ -9,6 +9,7 @@ import { createSchedule } from "../../queries/schedules/schedules";
 import { CreateScheduleSchema } from "../../schemas/CreateScheduleSchema";
 import { useFetchServices } from "../../queries/services/services";
 import FormSelectObject from "../Form/FormSelectObject";
+import FormSchedule from "../Form/FormSchedule";
 
 const CreateScheduleModal = () => {
   const [isModalCreateOpen, setCreateModalOpen] = useState(false);
@@ -31,17 +32,17 @@ const CreateScheduleModal = () => {
 
   const serviceOptions = services
     ? [
-        {
-          value: '',
-          label: 'Selecione',
-        },
-        ...services.map((service) => ({
-          value: service.id,
-          label: service.type,
-        })),
-      ]
+      {
+        value: '',
+        label: 'Selecione',
+      },
+      ...services.map((service) => ({
+        value: service.id,
+        label: service.type,
+      })),
+    ]
     : [];
-    
+
   function openCreateModal() {
     setCreateModalOpen(true);
   }
@@ -78,13 +79,11 @@ const CreateScheduleModal = () => {
               control={control}
               hasError={JSON.stringify(errors.date?.message)}
             />
-            <FormRow
-              type="time"
+            <FormSchedule
               name="hour"
               labelText="Hora"
-              placeholder="Digite a hora"
               control={control}
-              hasError={JSON.stringify(errors.hour?.message)}
+              errors={errors}
             />
             <FormSelectObject
               type="select"
