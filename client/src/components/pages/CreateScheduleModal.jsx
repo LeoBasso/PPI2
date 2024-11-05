@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm, Controller } from "react-hook-form";
 import FormRow from "../Form/FormRow";
 import OpenCloseModal from "../modal/OpenCloseModal";
 import ClearButtonForm from "../Buttons/ClearButtonForm";
 import SubmitButton from "../Buttons/SubmitButton";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { createSchedule } from "../../queries/schedules/schedules";
+import { createSchedule, fetchSchedulesByDate } from "../../queries/schedules/schedules";
 import { CreateScheduleSchema } from "../../schemas/CreateScheduleSchema";
 import { useFetchServices } from "../../queries/services/services";
 import FormSelectObject from "../Form/FormSelectObject";
@@ -13,12 +13,15 @@ import FormSchedule from "../Form/FormSchedule";
 
 const CreateScheduleModal = () => {
   const [isModalCreateOpen, setCreateModalOpen] = useState(false);
-  const { data: services } = useFetchServices();
+  const { data: services = [] } = useFetchServices();
+  const [existingSchedules, setExistingSchedules] = useState([]);
+  const [availableHours, setAvailableHours] = useState([]);
 
   const {
     handleSubmit,
     control,
     reset,
+    watch,
     formState: { errors },
   } = useForm({
     defaultValues: {
@@ -30,31 +33,33 @@ const CreateScheduleModal = () => {
     resolver: yupResolver(CreateScheduleSchema),
   });
 
-  const serviceOptions = services
-    ? [
-      {
-        value: '',
-        label: 'Selecione',
-      },
-      ...services.map((service) => ({
-        value: service.id,
-        label: service.type,
-      })),
-    ]
-    : [];
+  const watchDate = watch("date");
 
-  function openCreateModal() {
-    setCreateModalOpen(true);
-  }
+  useEffect(() => {
+    if (watchDate) {
+      fetchSchedulesByDate(watchDate).then(setExistingSchedules);
+    }
+  }, [watchDate]);
 
-  function closeCreateModal() {
-    setCreateModalOpen(false);
-  }
+  useEffect(() => {
+    const occupiedHours = existingSchedules.map(schedule => schedule.hour);
+    const allHours = ["13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30"];
+    const filteredHours = allHours.filter(hour => !occupiedHours.includes(hour));
+    setAvailableHours(filteredHours);
+  }, [existingSchedules]);
 
-  const handlerCreate = async (propertys) => {
-    console.log(propertys);
-    setCreateModalOpen(false);
-    await createSchedule(propertys);
+  const serviceOptions = [
+    { value: '', label: 'Selecione' },
+    ...services.map(service => ({ value: service.id, label: service.type })),
+  ];
+
+  const openCreateModal = () => setCreateModalOpen(true);
+  const closeCreateModal = () => setCreateModalOpen(false);
+
+  const handlerCreate = async (formData) => {
+    await createSchedule(formData);
+    reset();
+    closeCreateModal();
   };
 
   return (
@@ -83,18 +88,19 @@ const CreateScheduleModal = () => {
               name="hour"
               labelText="Hora"
               control={control}
-              errors={errors}
+              availableHours={availableHours}
+              hasError={JSON.stringify(errors.hour?.message)}
             />
             <FormSelectObject
-              type="select"
               name="service_id"
+              control={control}
               labelText="Serviço"
               options={serviceOptions}
-              control={control}
+              hasError={JSON.stringify(errors.service_id?.message)}
             />
           </div>
           <div className="relative inline-flex items-center justify-center">
-            <ClearButtonForm onClick={() => reset()} />
+            <ClearButtonForm onClick={reset} />
             <SubmitButton label="Enviar" />
           </div>
         </form>

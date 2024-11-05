@@ -15,8 +15,6 @@ const CreateServiceModal = () => {
     handleSubmit,
     control,
     reset,
-    watch,
-    setValue,
     formState: { errors },
   } = useForm({
     defaultValues: {

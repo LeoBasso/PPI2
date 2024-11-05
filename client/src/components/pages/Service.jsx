@@ -1,4 +1,3 @@
-import { useState } from "react";
 import DeleteServiceModal from "./DeleteServiceModal"
 import UpdateServiceModal from "./UpdateServiceModal";
 

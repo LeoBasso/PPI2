@@ -47,3 +47,14 @@ export const updateSchedule = async (id, schedule) => {
     toast.error(error.response.data.msg);
   }
 };
+
+export const fetchSchedulesByDate = async (date) => {
+  try {
+    const response = await customFetch.get('/schedules', { params: { date } });
+    return response.data;
+  } catch (error) {
+    toast.error(error.response.data.msg || "Erro ao buscar agendamentos.");
+    return [];
+  }
+};
+
