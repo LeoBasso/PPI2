@@ -35,7 +35,11 @@ export class SchedulesRepository implements ISchedulesRepository {
   }
 
   public async findByDate(date: IDate): Promise<ISchedule | null> {
-    const schedule = await this.ormRepository.findOneBy({hour:date.startHour});
+    // const schedule = await this.ormRepository.findOneBy({hour:date.startHour});
+    console.log(date.date);
+    const schedule = await this.ormRepository.findOne({where:{date:date.date, hour:date.startHour}});
+    // const schedule = await this.ormRepository.findOne({where:{date:date.date, hour:date.startHour, endHour: date.endHour}});
+    console.log(schedule);
     return schedule;
   }
   

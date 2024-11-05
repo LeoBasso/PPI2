@@ -23,6 +23,10 @@ export class CreateSchedulesTable1719363847201 implements MigrationInterface {
             type: 'varchar',
           },
           {
+            name: 'endhour',
+            type: 'varchar',
+          },
+          {
             name: 'status',
             type: 'varchar',
           },

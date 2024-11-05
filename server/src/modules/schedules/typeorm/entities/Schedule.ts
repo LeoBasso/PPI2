@@ -23,6 +23,9 @@ class Schedule implements ISchedule {
   @Column()
   hour: string;
 
+  @Column()
+  endhour: string;
+
   @Column({
     type: 'enum',
     enum: ScheduleTypes,

@@ -4,6 +4,7 @@ export interface ISchedule {
   id: number;
   date: Date;
   hour: string;
+  endhour: string;
   status: ScheduleTypes;
   service_id: number;
   user_id: number;

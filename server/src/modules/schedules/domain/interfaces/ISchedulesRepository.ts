@@ -4,7 +4,7 @@ import { ISchedule } from "./ISchedule";
 export interface IDate {
   startHour: string;
   endHour: string;
-  date: string;
+  date: Date;
 }
 
 export interface ISchedulesRepository {
