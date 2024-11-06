@@ -16,30 +16,33 @@ export class UpdateProfileService {
     ) { }
 
     public async execute(updateProfileDTO: UpdateProfileDTO): Promise<LoginRespondeDTO> {
+
         const user = await this.usersRepository.findById(updateProfileDTO.id);
 
         if (!user) {
             throw new BadRequestError(USER_NOT_EXISTS);
         }
 
-        const userUpdateEmail = await this.usersRepository.findByEmail(updateProfileDTO.email);
-        console.log(userUpdateEmail);
-        console.log(updateProfileDTO);
-        
-        if (userUpdateEmail.id != updateProfileDTO.id) {
-            throw new BadRequestError(EMAIL_ALREADY_USED);
+        if (user.email !== updateProfileDTO.email) {
+            const userUpdateEmail = await this.usersRepository.findByEmail(updateProfileDTO.email);
+
+            if (userUpdateEmail && userUpdateEmail.id !== updateProfileDTO.id) {
+                throw new BadRequestError(EMAIL_ALREADY_USED);
+            }
         }
+
         user.name = updateProfileDTO.name;
         user.email = updateProfileDTO.email;
+        user.number = updateProfileDTO.number;
 
         await this.usersRepository.save(user);
 
         const token = sign({}, process.env.JWT_SECRET as Secret, {
             subject: user.id.toString(),
             expiresIn: process.env.JWT_LIFETIME,
-          });
-      
-          const userResponseDTO = new UserRespondeDTO(user.id, user.name, user.email, user.number, user.role);
-          return new LoginRespondeDTO(userResponseDTO, token);
+        });
+
+        const userResponseDTO = new UserRespondeDTO(user.id, user.name, user.email, user.number, user.role);
+        return new LoginRespondeDTO(userResponseDTO, token);
     }
 }
