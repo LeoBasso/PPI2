@@ -14,7 +14,6 @@ export const createUser = async (user) => {
 export const login = async (userLogin) => {
   try {
     const response = await customFetch.post("/auth", userLogin);
-
     toast.success("Usuário logado com sucesso!");
     return response;
   } catch (error) {

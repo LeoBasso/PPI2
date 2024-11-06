@@ -14,5 +14,12 @@ export const CreateUserSchema = yup
       .string()
       .min(4, 'A senha deve ter no mínimo 4 caracteres')
       .required('Por favor, forneça uma senha'),
+    number: yup
+      .string()
+      .matches(
+        /^(\+55\s?)?(\()?(\d{2})(\))?\s?(\d{4,5})[-\s]?\d{4}$/,
+        "Número de telefone inválido"
+      )
+      .required('Por favor, forneça o número de telefone'),  // Campo obrigatório
   })
   .required();

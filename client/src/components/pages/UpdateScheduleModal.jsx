@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import FormRow from "../Form/FormRow";
 import OpenCloseModal from "../modal/OpenCloseModal";
@@ -6,37 +6,50 @@ import ClearButtonForm from "../Buttons/ClearButtonForm";
 import SubmitButton from "../Buttons/SubmitButton";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { AiOutlineEdit } from "react-icons/ai";
-import { updateSchedule } from "../../queries/schedules/schedules";
+import { updateSchedule, fetchSchedulesByDate } from "../../queries/schedules/schedules";
 import { CreateScheduleSchema } from "../../schemas/CreateScheduleSchema";
-import FormSchedule from "../Form/FormSchedule"; // Importar o componente personalizado
+import FormSchedule from "../Form/FormSchedule";
 
-const UpdateScheduleModal = (schedule) => {
+const UpdateScheduleModal = ({ schedule = {} }) => {
   const [isModalCreateOpen, setCreateModalOpen] = useState(false);
-  console.log(schedule);
+  const [existingSchedules, setExistingSchedules] = useState([]);
+  const [availableHours, setAvailableHours] = useState([]);
+
   const {
     handleSubmit,
     control,
     reset,
+    watch,
     formState: { errors },
   } = useForm({
     defaultValues: {
-      date: schedule.value.date,
-      hour: schedule.value.hour,
+      date: schedule.value?.date || "",
+      hour: schedule.value?.hour || "",
     },
     resolver: yupResolver(CreateScheduleSchema),
   });
+  const watchDate = watch("date");
 
-  function openUpdateModal() {
-    setCreateModalOpen(true);
-  }
+  useEffect(() => {
+    if (watchDate) {
+      fetchSchedulesByDate(watchDate).then(setExistingSchedules);
+    }
+  }, [watchDate]);
 
-  function closeUpdateModal() {
-    setCreateModalOpen(false);
-  }
+  useEffect(() => {
+    const occupiedHours = existingSchedules.map(schedule => schedule.hour);
+    const allHours = ["13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30"];
+    const filteredHours = allHours.filter(hour => !occupiedHours.includes(hour));
+    setAvailableHours(filteredHours);
+  }, [existingSchedules]);
+
+  const openUpdateModal = () => setCreateModalOpen(true);
+  const closeUpdateModal = () => setCreateModalOpen(false);
 
   const handlerUpdate = async (schedules) => {
-    setCreateModalOpen(false);
     await updateSchedule(schedule.value.id, schedules);
+    reset();
+    closeUpdateModal();
   };
 
   return (
@@ -65,7 +78,8 @@ const UpdateScheduleModal = (schedule) => {
               name="hour"
               labelText="Hora"
               control={control}
-              errors={errors}
+              availableHours={availableHours}
+              hasError={JSON.stringify(errors.hour?.message)}
             />
           </div>
           <div className="flex justify-center">

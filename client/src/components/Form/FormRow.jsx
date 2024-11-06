@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Controller } from "react-hook-form";
+import InputMask from "react-input-mask";
 
 const FormRow = ({
   type,
@@ -40,8 +41,7 @@ const FormRow = ({
                 <div
                   onClick={() => setIsSelectOpen(!isSelectOpen)}
                   className="absolute inset-y-0 right-0 flex items-center pr-2 cursor-pointer"
-                >
-                </div>
+                ></div>
                 <select
                   name={field.name}
                   value={field.value}
@@ -73,6 +73,22 @@ const FormRow = ({
                 onChange={field.onChange}
                 className={inputClass}
                 {...field}
+                disabled={disabled}
+              />
+            )}
+          />
+        ) : type === "tel" ? (
+          <Controller
+            name={name}
+            control={control}
+            render={({ field }) => (
+              <InputMask
+                mask="(99) 99999-9999"
+                name={field.name}
+                placeholder={placeholder}
+                value={field.value}
+                onChange={field.onChange}
+                className={inputClass}
                 disabled={disabled}
               />
             )}
