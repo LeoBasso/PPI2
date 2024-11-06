@@ -17,7 +17,7 @@ const DropDown = () => {
 
   const logout = () => {
     removeUserFromLocalStorage();
-    toast.success("Saindo");
+    toast.info("Saindo");
     navigate("/login");
   };
 

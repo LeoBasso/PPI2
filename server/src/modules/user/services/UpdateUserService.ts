@@ -13,25 +13,21 @@ export class UpdateUserService {
   ) {}
 
   public async execute(updateUserDTO: UpdateUserDTO): Promise<LoginRespondeDTO> {
-    // Busca o usuário no repositório
+
     const user = await this.usersRepository.findById(updateUserDTO.id);
     if (!user) {
-      throw new Error('User not found'); // Erro se o usuário não existir
+      throw new Error('User not found');
     }
 
-    // Atualiza o campo `role` do usuário
     user.role = updateUserDTO.role;
 
-    // Salva o usuário atualizado
     await this.usersRepository.save(user);
 
-    // Gera o token atualizado
     const token = sign({}, process.env.JWT_SECRET as Secret, {
       subject: user.id.toString(),
       expiresIn: process.env.JWT_LIFETIME,
     });
 
-    // Retorna o DTO do usuário atualizado com o token
     const userResponseDTO = new UserRespondeDTO(user.id, user.name, user.email, user.number, user.role);
     return new LoginRespondeDTO(userResponseDTO, token);
   }

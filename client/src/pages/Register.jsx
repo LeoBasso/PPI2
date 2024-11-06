@@ -44,7 +44,7 @@ const RegisterCard = () => {
           type="text"
           name="name"
           labelText="Nome"
-          placeholder="Digite o nome do usuário"
+          placeholder="Digite o nome completo de usuário"
           control={control}
           hasError={JSON.stringify(errors.name?.message)}
         />

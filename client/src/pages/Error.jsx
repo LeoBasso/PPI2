@@ -1,21 +1,27 @@
 import { Link } from "react-router-dom";
-import img from "../assets/images/not-found.svg";
 
 const Error = () => {
   return (
     <>
-      <div className=" text-gray-300 ">
-        <img src={img} alt="not found" className="mx-auto pt-20 pb-2" />
-        <h3>Ohh! Página não encontrada</h3>
-        <p>
-          Parece que não conseguimos encontrar a página que você está procurando
-        </p>
-        <Link to="/">
-          <p className="block mt-4 hover:text-blue-700 text-blue-500 ">
-            Voltar para a home
-          </p>
-        </Link>
-      </div>
+      <main className="h-screen w-full flex flex-col justify-center items-center bg-[#6e776e]">
+        <h1 className="text-9xl font-extrabold text-[#fff7ed] tracking-widest">404</h1>
+        <div className="bg-[#FF6A3D] px-2 text-sm text-[#fff7ed] rounded rotate-12 absolute">
+          Page Not Found
+        </div>
+        <button className="mt-5">
+          <Link
+            to="/"
+            className="relative inline-block text-sm font-medium text-[#fff7ed] group active:text-orange-500 focus:outline-none focus:ring"
+          >
+            <span
+              className="absolute inset-0 transition-transform translate-x-0.5 translate-y-0.5 bg-[#fff7ed] group-hover:translate-y-0 group-hover:translate-x-0"
+            ></span>
+            <span className="relative block px-8 py-3 bg-[#6e776e] border border-current">
+              Voltar ao início
+            </span>
+          </Link>
+        </button>
+      </main>
     </>
   );
 };

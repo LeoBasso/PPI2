@@ -17,7 +17,7 @@ export const login = async (userLogin) => {
     toast.success("Usuário logado com sucesso!");
     return response;
   } catch (error) {
-    toast.error(error.response?.data.msg);
+    toast.error("Nenhum usuário encontrado");
   }
 };
 
