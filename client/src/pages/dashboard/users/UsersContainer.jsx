@@ -36,6 +36,9 @@ const UsersContainer = () => {
                     <th scope="col" className="px-4 py-3">
                       Permissão
                     </th>
+                    <th scope="col" className="px-4 py-3">
+                      Excluir
+                    </th>
                   </tr>
                 </thead>
                 <tbody className="bg-[#d6d3d1] text-black">

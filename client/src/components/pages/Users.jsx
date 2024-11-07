@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useQueryClient } from "react-query";
 import { updateUser } from "../../queries/users/users";
+import DeleteUserModal from "./DeleteUserModal"
 
 const Users = ({ user }) => {
   const [isAdmin, setIsAdmin] = useState(user.role === "admin");
@@ -41,6 +42,9 @@ const Users = ({ user }) => {
           <div className="w-10 h-5 bg-gray-200 rounded-full peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-blue-300 dark:peer-focus:ring-blue-800 peer dark:bg-gray-700 peer-checked:bg-blue-600"></div>
           <span className="absolute left-0 top-0 w-5 h-5 bg-white rounded-full transition-transform duration-200 ease-in-out peer-checked:translate-x-5"></span>
         </label>
+      </td>
+      <td className="flex-1 p-3">
+        <DeleteUserModal value={user} />
       </td>
     </tr>
   );

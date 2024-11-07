@@ -43,3 +43,13 @@ export const updateUser = async (id, user) => {
     toast.error(error.response.data.msg);
   }
 };
+
+export const deleteUser = async (id) => {
+  try {
+    await customFetch.delete(`/user/${id}`);
+    await queryClient.invalidateQueries('user');
+    toast.success("Usuário excluído com sucesso!");
+  } catch (error) {
+    toast.error(error.response.data.msg);
+  }
+};
