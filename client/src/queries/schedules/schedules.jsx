@@ -9,7 +9,7 @@ export const createSchedule = async (schedule) => {
     await queryClient.invalidateQueries('schedule');
     toast.success("Agendamento criado com sucesso!");
   } catch (error) {
-    toast.error(error.response.data.msg);
+    toast.warn("O tempo do serviço não se ajusta ao horário selecionado");
   }
 };
 
@@ -47,14 +47,3 @@ export const updateSchedule = async (id, schedule) => {
     toast.error(error.response.data.msg);
   }
 };
-
-export const fetchSchedulesByDate = async (date) => {
-  try {
-    const response = await customFetch.get('/schedules', { params: { date } });
-    return response.data;
-  } catch (error) {
-    toast.error(error.response.data.msg || "Erro ao buscar agendamentos.");
-    return [];
-  }
-};
-

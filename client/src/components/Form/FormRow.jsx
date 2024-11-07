@@ -93,6 +93,38 @@ const FormRow = ({
               />
             )}
           />
+        ) : type === "hour" ? (
+          <Controller
+            name={name}
+            control={control}
+            render={({ field }) => (
+              <select
+                name={field.name}
+                value={field.value}
+                onChange={field.onChange}
+                className={inputClass}
+                disabled={disabled}
+              >
+                <option value="">Selecione o horário</option>
+                {[
+                  "13:00",
+                  "13:30",
+                  "14:00",
+                  "14:30",
+                  "15:00",
+                  "15:30",
+                  "16:00",
+                  "16:30",
+                  "17:00",
+                  "17:30",
+                ].map((hour, index) => (
+                  <option key={index} value={hour}>
+                    {hour}
+                  </option>
+                ))}
+              </select>
+            )}
+          />
         ) : (
           <Controller
             name={name}

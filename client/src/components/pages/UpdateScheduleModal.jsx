@@ -6,7 +6,7 @@ import ClearButtonForm from "../Buttons/ClearButtonForm";
 import SubmitButton from "../Buttons/SubmitButton";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { AiOutlineEdit } from "react-icons/ai";
-import { updateSchedule, fetchSchedulesByDate } from "../../queries/schedules/schedules";
+import { updateSchedule } from "../../queries/schedules/schedules";
 import { CreateScheduleSchema } from "../../schemas/CreateScheduleSchema";
 import FormSchedule from "../Form/FormSchedule";
 
@@ -29,19 +29,6 @@ const UpdateScheduleModal = ({ schedule = {} }) => {
     resolver: yupResolver(CreateScheduleSchema),
   });
   const watchDate = watch("date");
-
-  useEffect(() => {
-    if (watchDate) {
-      fetchSchedulesByDate(watchDate).then(setExistingSchedules);
-    }
-  }, [watchDate]);
-
-  useEffect(() => {
-    const occupiedHours = existingSchedules.map(schedule => schedule.hour);
-    const allHours = ["13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30"];
-    const filteredHours = allHours.filter(hour => !occupiedHours.includes(hour));
-    setAvailableHours(filteredHours);
-  }, [existingSchedules]);
 
   const openUpdateModal = () => setCreateModalOpen(true);
   const closeUpdateModal = () => setCreateModalOpen(false);

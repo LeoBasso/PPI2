@@ -5,18 +5,16 @@ import OpenCloseModal from "../modal/OpenCloseModal";
 import ClearButtonForm from "../Buttons/ClearButtonForm";
 import SubmitButton from "../Buttons/SubmitButton";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { createSchedule, fetchSchedulesByDate } from "../../queries/schedules/schedules";
+import { createSchedule } from "../../queries/schedules/schedules";
 import { CreateScheduleSchema } from "../../schemas/CreateScheduleSchema";
 import { useFetchServices } from "../../queries/services/services";
 import FormSelectObject from "../Form/FormSelectObject";
-import FormSchedule from "../Form/FormSchedule";
 
 const CreateScheduleModal = () => {
   const [isModalCreateOpen, setCreateModalOpen] = useState(false);
   const { data: services = [] } = useFetchServices();
-  const [availableHours, setAvailableHours] = useState([]);
 
-  const { handleSubmit, control, reset, watch, formState: { errors } } = useForm({
+  const { handleSubmit, control, reset, formState: { errors } } = useForm({
     defaultValues: {
       date: "",
       hour: "",
@@ -25,19 +23,6 @@ const CreateScheduleModal = () => {
     },
     resolver: yupResolver(CreateScheduleSchema),
   });
-
-  const watchDate = watch("date");
-
-  useEffect(() => {
-    if (watchDate) {
-      fetchSchedulesByDate(watchDate).then((schedules) => {
-        const occupiedHours = schedules.map(schedule => schedule.hour);
-        const allHours = ["13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30"];
-        const filteredHours = allHours.filter(hour => !occupiedHours.includes(hour));
-        setAvailableHours(filteredHours);
-      });
-    }
-  }, [watchDate]);
 
   const serviceOptions = [
     { value: '', label: 'Selecione' },
@@ -48,6 +33,8 @@ const CreateScheduleModal = () => {
   const closeCreateModal = () => setCreateModalOpen(false);
 
   const handlerCreate = async (formData) => {
+    const formattedDate = new Date(formData.date).toLocaleDateString('en-CA');
+    formData.date = formattedDate;
     await createSchedule(formData);
     reset();
     closeCreateModal();
@@ -75,12 +62,13 @@ const CreateScheduleModal = () => {
               control={control}
               hasError={errors.date?.message}
             />
-            <FormSchedule
+            <FormRow
+              type="hour"
               name="hour"
-              labelText="Hora"
+              labelText="Selecione o horário"
               control={control}
-              availableHours={availableHours}
-              hasError={errors.hour?.message}
+              hasError={errors.time}
+              disabled={false}
             />
             <FormSelectObject
               name="service_id"

@@ -38,7 +38,7 @@ export function useFetchUsers() {
 export const updateUser = async (id, user) => {
   try {
     await customFetch.put(`/user/${id}`, user);
-    toast.success("Usuário atualizado com sucesso!");
+    toast.warn("Permissões de usuário alteradas");
   } catch (error) {
     toast.error(error.response.data.msg);
   }
