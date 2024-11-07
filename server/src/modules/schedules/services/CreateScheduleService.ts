@@ -26,7 +26,6 @@ export class CreateScheduleService {
     }
 
     const endhourDate = new Date(scheduleDate.getTime() + service.time * 60 * 1000);
-
     const formattedEndhour = `${endhourDate.getHours().toString().padStart(2, '0')}:${endhourDate.getMinutes().toString().padStart(2, '0')}`;
 
     const exists = await this.schedulesRepository.findByDate({
@@ -37,6 +36,23 @@ export class CreateScheduleService {
 
     if (exists) {
       throw new BadRequestError('Já existe outro agendamento neste horário');
+    }
+
+    const allSchedules = await this.schedulesRepository.findAll();
+
+    const conflict = allSchedules.some((schedule) => {
+
+      const scheduleStart = new Date(`${createSchedule.date}T${createSchedule.hour}:00`);
+      const scheduleEnd = new Date(scheduleStart.getTime() + service.time * 60 * 1000);
+
+      const existingScheduleStart = new Date(`${schedule.date}T${schedule.hour}:00`);
+      const existingScheduleEnd = new Date(existingScheduleStart.getTime() + service.time * 60 * 1000);
+
+      return (scheduleStart < existingScheduleEnd && scheduleEnd > existingScheduleStart);
+    });
+
+    if (conflict) {
+      throw new BadRequestError('O tempo do serviço não se ajusta ao horário selecionado');
     }
 
     const response = await this.schedulesRepository.create({ ...createSchedule, endhour: formattedEndhour });
