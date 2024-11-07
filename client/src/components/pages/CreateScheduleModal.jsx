@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useForm, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import FormRow from "../Form/FormRow";
 import OpenCloseModal from "../modal/OpenCloseModal";
 import ClearButtonForm from "../Buttons/ClearButtonForm";
@@ -14,16 +14,9 @@ import FormSchedule from "../Form/FormSchedule";
 const CreateScheduleModal = () => {
   const [isModalCreateOpen, setCreateModalOpen] = useState(false);
   const { data: services = [] } = useFetchServices();
-  const [existingSchedules, setExistingSchedules] = useState([]);
   const [availableHours, setAvailableHours] = useState([]);
 
-  const {
-    handleSubmit,
-    control,
-    reset,
-    watch,
-    formState: { errors },
-  } = useForm({
+  const { handleSubmit, control, reset, watch, formState: { errors } } = useForm({
     defaultValues: {
       date: "",
       hour: "",
@@ -37,16 +30,14 @@ const CreateScheduleModal = () => {
 
   useEffect(() => {
     if (watchDate) {
-      fetchSchedulesByDate(watchDate).then(setExistingSchedules);
+      fetchSchedulesByDate(watchDate).then((schedules) => {
+        const occupiedHours = schedules.map(schedule => schedule.hour);
+        const allHours = ["13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30"];
+        const filteredHours = allHours.filter(hour => !occupiedHours.includes(hour));
+        setAvailableHours(filteredHours);
+      });
     }
   }, [watchDate]);
-
-  useEffect(() => {
-    const occupiedHours = existingSchedules.map(schedule => schedule.hour);
-    const allHours = ["13:00", "13:30", "14:00", "14:30", "15:00", "15:30", "16:00", "16:30", "17:00", "17:30"];
-    const filteredHours = allHours.filter(hour => !occupiedHours.includes(hour));
-    setAvailableHours(filteredHours);
-  }, [existingSchedules]);
 
   const serviceOptions = [
     { value: '', label: 'Selecione' },
@@ -82,21 +73,21 @@ const CreateScheduleModal = () => {
               labelText="Data"
               placeholder="Data"
               control={control}
-              hasError={JSON.stringify(errors.date?.message)}
+              hasError={errors.date?.message}
             />
             <FormSchedule
               name="hour"
               labelText="Hora"
               control={control}
               availableHours={availableHours}
-              hasError={JSON.stringify(errors.hour?.message)}
+              hasError={errors.hour?.message}
             />
             <FormSelectObject
               name="service_id"
               control={control}
               labelText="Serviço"
               options={serviceOptions}
-              hasError={JSON.stringify(errors.service_id?.message)}
+              hasError={errors.service_id?.message}
             />
           </div>
           <div className="relative inline-flex items-center justify-center">
