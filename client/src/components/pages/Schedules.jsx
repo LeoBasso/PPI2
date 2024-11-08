@@ -45,7 +45,7 @@ const Schedules = ({ schedule }) => {
             <>
               <td className="px-6 py-4">
                 <button
-                  className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded mr-2"
+                  className="bg-[#6e776e] hover:bg-[#989f98] text-white font-bold py-2 px-4 rounded mr-2"
                   onClick={handleAccept}
                 >
                   Aceitar

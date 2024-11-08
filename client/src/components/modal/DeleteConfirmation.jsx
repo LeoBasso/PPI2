@@ -19,7 +19,7 @@ export function DeleteConfirmation({ onCancel, onConfirm, message }) {
               onClick={onCancel}
               data-modal-toggle="deleteModal"
               type="button"
-              className="py-2 px-3 text-sm font-medium text-center text-white bg-green-600 rounded hover:bg-green-500 hover:text-gray-900 focus:ring-4 focus:outline-none focus:ring-red-300"
+              className="py-2 px-3 text-sm font-medium text-center text-white bg-[#6e776e] rounded hover:bg-[#989f98] hover:text-gray-900 focus:ring-4 focus:outline-none focus:ring-red-300"
             >
               Não, cancelar
             </button>
