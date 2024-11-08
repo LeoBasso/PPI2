@@ -35,17 +35,16 @@ const CreateScheduleModal = () => {
   const handlerCreate = async (formData) => {
     const formattedDate = new Date(formData.date).toLocaleDateString('en-CA');
     formData.date = formattedDate;
-  
+
     const selectedService = services.find(service => service.id === formData.service_id);
     if (selectedService && selectedService.autoschedule) {
       formData.status = "Aceito";
     }
-  
+
     await createSchedule(formData);
     reset();
     closeCreateModal();
   };
-  
 
   return (
     <div className="flex items-center justify-center">
@@ -74,9 +73,22 @@ const CreateScheduleModal = () => {
               name="hour"
               labelText="Selecione o horário"
               control={control}
-              hasError={errors.time}
+              hasError={errors.hour}
+              options={[
+                "13:00",
+                "13:30",
+                "14:00",
+                "14:30",
+                "15:00",
+                "15:30",
+                "16:00",
+                "16:30",
+                "17:00",
+                "17:30",
+              ]}
               disabled={false}
             />
+
             <FormSelectObject
               name="service_id"
               control={control}

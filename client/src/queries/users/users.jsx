@@ -1,6 +1,7 @@
 import { useQuery } from "react-query";
 import customFetch from "../../utils/axios";
 import { toast } from "react-toastify";
+import queryClient from "../../services/queryClient";
 
 export const createUser = async (user) => {
   try {
@@ -47,7 +48,7 @@ export const updateUser = async (id, user) => {
 export const deleteUser = async (id) => {
   try {
     await customFetch.delete(`/user/${id}`);
-    await queryClient.invalidateQueries('user');
+    await queryClient.invalidateQueries('users');
     toast.success("Usuário excluído com sucesso!");
   } catch (error) {
     toast.error(error.response.data.msg);
