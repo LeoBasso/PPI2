@@ -48,7 +48,7 @@ const UpdateScheduleModal = ({ schedule = {} }) => {
         modalName={"Editar Agendamento"}
         colorText={"text-green-600"}
         backdrop={false}
-        modalButton={<AiOutlineEdit />}
+        modalButton={<AiOutlineEdit className="text-[#6e776e]"/>}
         classStyle={false}
       >
         <form onSubmit={handleSubmit(handlerUpdate)}>
