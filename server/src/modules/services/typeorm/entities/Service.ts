@@ -26,6 +26,9 @@ class Service implements IService {
   @Column()
   price: number;
 
+  @Column()
+  autoschedule: boolean;
+
   @Column({ type: 'bigint' })
   user_id: number;
 

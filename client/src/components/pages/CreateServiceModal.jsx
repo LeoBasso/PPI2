@@ -21,6 +21,7 @@ const CreateServiceModal = () => {
       type: "",
       time: "",
       price: "",
+      autoschedule: false,
     },
     resolver: yupResolver(CreateServiceSchema),
   });
@@ -76,6 +77,15 @@ const CreateServiceModal = () => {
               placeholder="Digite o valor do serviço"
               control={control}
               hasError={JSON.stringify(errors.price?.message)}
+            />
+            <FormRow
+              type="checkbox"
+              name="autoschedule"
+              labelText="Auto agendamento"
+              placeholder="esc"
+              control={control}
+              hasError={false}
+              disabled={false}
             />
           </div>
           <div className="relative inline-flex items-center justify-center">

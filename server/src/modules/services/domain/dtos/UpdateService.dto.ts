@@ -3,4 +3,5 @@ export class UpdateServiceDTO {
   type?: string;
   time?: number;
   price?: number;
+  autoschedule?: boolean;
 }

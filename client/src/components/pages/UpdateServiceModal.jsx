@@ -22,6 +22,7 @@ const UpdateServiceModal = (service) => {
       type: service.value.type,
       time: service.value.time,
       price: service.value.price,
+      autoschedule: service.value.autoschedule === true
     },
     resolver: yupResolver(CreateServiceSchema),
   });
@@ -48,7 +49,9 @@ const UpdateServiceModal = (service) => {
         modalName={"Editar Serviço"}
         colorText={"text-green-600"}
         backdrop={false}
-        modalButton={<AiOutlineEdit />}
+        modalButton={
+          <AiOutlineEdit className="text-[#6e776e]" />
+        }
         classStyle={false}
       >
         <form onSubmit={handleSubmit(handlerUpdate)}>
@@ -76,6 +79,14 @@ const UpdateServiceModal = (service) => {
               placeholder="Digite o valor do serviço"
               control={control}
               hasError={JSON.stringify(errors.elevation?.message)}
+            />
+            <FormRow
+              type="checkbox"
+              name="autoschedule"
+              labelText="Auto agendamento"
+              placeholder="esc"
+              control={control}
+              disabled={false}
             />
           </div>
           <div className="flex justify-center">

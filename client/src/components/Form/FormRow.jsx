@@ -13,24 +13,26 @@ const FormRow = ({
   disabled,
 }) => {
   const [isSelectOpen, setIsSelectOpen] = useState(false);
-  const inputClass = `bg-[#fff7ed] border ${
-    hasError ? "border-red-500" : "border-gray-300"
-  } text-gray-900 text-sm rounded-lg focus:ring-primary-600 ${
-    hasError ? "focus:border-red-500" : "focus:border-primary-600"
-  } block w-full p-2 placeholder-gray-900 dark:focus:ring-primary-500 dark:focus:border-primary-500 ${
-    disabled ? "bg-gray-700 text-gray-600" : ""
-  }`;
+  const inputClass = `bg-[#fff7ed] border ${hasError ? "border-red-500" : "border-gray-300"
+    } text-gray-900 text-sm rounded-lg focus:ring-primary-600 ${hasError ? "focus:border-red-500" : "focus:border-primary-600"
+    } block w-full p-2 placeholder-gray-900 dark:focus:ring-primary-500 dark:focus:border-primary-500 ${disabled ? "bg-gray-700 text-gray-600" : ""
+    }`;
+
+  const checkboxClass = `bg-[#fff7ed] border ${hasError ? "border-red-500" : "border-gray-300"
+    } text-[#6e776e] text-sm rounded-md focus:ring-[#6e776e] ${hasError ? "focus:border-red-500" : "focus:border-primary-600"
+    } inline-block w-auto p-2 cursor-pointer ${disabled ? "bg-gray-700 text-gray-600" : ""
+    } w-4 h-4`;
+
 
   return (
     <div>
       <div className="mb-2 block">
         <label
-          className={`block mb-2 text-sm font-medium ${
-            hasError ? "text-red-700 dark:text-red-500" : "text-white"
-          }`}
+          className={`block mb-2 text-sm font-medium ${hasError ? "text-red-700 dark:text-red-500" : "text-white"
+            }`}
           htmlFor={name}
         >
-          {labelText || name}{" "}
+          {labelText || name}
         </label>
         {type === "select" ? (
           <Controller
@@ -59,6 +61,23 @@ const FormRow = ({
                     </option>
                   ))}
                 </select>
+              </div>
+            )}
+          />
+        ) : type === "checkbox" ? (
+          <Controller
+            name={name}
+            control={control}
+            render={({ field }) => (
+              <div className="flex justify-center items-center mt-5">
+                <input
+                  type="checkbox"
+                  name={field.name}
+                  checked={field.value}
+                  onChange={field.onChange}
+                  className={`${checkboxClass} transform scale-150`}
+                  disabled={disabled}
+                />
               </div>
             )}
           />

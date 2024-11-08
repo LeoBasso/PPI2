@@ -22,6 +22,7 @@ export class UpdateServiceService {
     service.type = updateService.type;
     service.time = updateService.time;
     service.price = updateService.price;
+    service.autoschedule = updateService.autoschedule;
 
     const response = await this.servicesRepository.save(service);
 
@@ -30,6 +31,7 @@ export class UpdateServiceService {
       response.type,  
       response.time, 
       response.price,
+      response.autoschedule,
     );
   }
 }

@@ -27,6 +27,10 @@ export class CreateServiceTable1718991698599 implements MigrationInterface {
             type: 'int',
           },
           {
+            name: 'autoschedule',
+            type: 'boolean'
+          },
+          {
             name: 'user_id',
             type: 'bigint',
           },

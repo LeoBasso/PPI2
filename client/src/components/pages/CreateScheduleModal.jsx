@@ -35,10 +35,17 @@ const CreateScheduleModal = () => {
   const handlerCreate = async (formData) => {
     const formattedDate = new Date(formData.date).toLocaleDateString('en-CA');
     formData.date = formattedDate;
+  
+    const selectedService = services.find(service => service.id === formData.service_id);
+    if (selectedService && selectedService.autoschedule) {
+      formData.status = "Aceito";
+    }
+  
     await createSchedule(formData);
     reset();
     closeCreateModal();
   };
+  
 
   return (
     <div className="flex items-center justify-center">

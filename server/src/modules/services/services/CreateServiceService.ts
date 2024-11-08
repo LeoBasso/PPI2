@@ -2,7 +2,6 @@ import { inject, injectable } from 'tsyringe';
 import { IServicesRepository } from '../domain/interfaces/IServicesRepository';
 import { CreateServiceDTO } from '../domain/dtos/CreateService.dto';
 import { ServiceResponseDTO } from '../domain/dtos/ServiceReponse.dto';
-// import { ServiceTypes } from '../domain/enums/ServiceTypes.enum';
 
 @injectable()
 export class CreateServiceService {
@@ -21,6 +20,7 @@ export class CreateServiceService {
       response.type, 
       response.time,
       response.price, 
+      response.autoschedule,
     );
   }
 }

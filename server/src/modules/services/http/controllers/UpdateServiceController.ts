@@ -7,7 +7,7 @@ export class UpdateServiceController {
   public async execute(req: Request, res: Response): Promise<Response> {
 
       const id = req.params.id;
-      const {type, time, price} = req.body;
+      const {type, time, price, autoschedule} = req.body;
 
       const updateServiceService = container.resolve(UpdateServiceService);
 
@@ -16,6 +16,7 @@ export class UpdateServiceController {
         type,
         time,
         price,
+        autoschedule,
       }
 
       const updatedService = await updateServiceService.execute(updateServiceDTO);
