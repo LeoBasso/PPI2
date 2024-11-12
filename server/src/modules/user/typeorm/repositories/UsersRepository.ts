@@ -47,6 +47,10 @@ export class UsersRepository implements IUsersRepository {
   }
 
   public async remove(user: IUser): Promise<void> {
-    await this.ormRepository.remove(user);
+    const userEntity = await this.ormRepository.findOneBy({ id: user.id });  // Buscar a entidade User
+    if (userEntity) {
+      await this.ormRepository.remove(userEntity);
+    }
   }
+  
 }
