@@ -24,7 +24,7 @@ async function seed() {
     const newUser = await userRepository.create({
       name: 'Admin',
       email: 'admin@admin.com',
-      number: '99999999999',
+      number: '00000000000',
       password: hashedPassword,
       role: RoleTypes.ADMIN,
     });
