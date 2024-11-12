@@ -2,6 +2,7 @@ import { inject, injectable } from 'tsyringe';
 import { ISchedulesRepository } from '../domain/interfaces/ISchedulesRepository';
 import { ISchedule } from '../domain/interfaces/ISchedule';
 import { IUsersRepository } from 'src/modules/user/domain/interfaces/UserRepository.interfece';
+import moment from 'moment';
 
 @injectable()
 export class ListSchedulesService {
@@ -23,12 +24,7 @@ export class ListSchedulesService {
     }
 
     schedules.forEach(schedule => {
-      const date = new Date(schedule.date);
-      const formattedDate = date.toLocaleDateString('pt-BR', {
-        day: '2-digit',
-        month: '2-digit',
-        year: 'numeric',
-      });
+      const formattedDate = moment(schedule.date).local().format('DD/MM/YYYY');
       schedule.date = formattedDate as any;
     });
 
