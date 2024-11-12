@@ -44,6 +44,6 @@ export const updateSchedule = async (id, schedule) => {
     await queryClient.invalidateQueries('schedule');
     toast.success("Agendamento atualizado com sucesso!");
   } catch (error) {
-    toast.error(error.response.data.msg);
+    toast.error("Erro ao atualizar agendamento!");
   }
 };
