@@ -16,6 +16,11 @@ export class CreateScheduleService {
 
   public async execute(createSchedule: CreateScheduleDTO): Promise<ScheduleResponseDTO> {
     const scheduleDate = new Date(createSchedule.date);
+
+    if (scheduleDate < new Date()) {
+      throw new BadRequestError('Não é possível criar agendamentos em datas anteriores a hoje');
+    }
+
     const [hour, minutes] = createSchedule.hour.split(':').map(Number);
     scheduleDate.setHours(hour, minutes, 0, 0);
 
@@ -41,7 +46,6 @@ export class CreateScheduleService {
     const allSchedules = await this.schedulesRepository.findAll();
 
     const conflict = allSchedules.some((schedule) => {
-
       const scheduleStart = new Date(`${createSchedule.date}T${createSchedule.hour}:00`);
       const scheduleEnd = new Date(scheduleStart.getTime() + service.time * 60 * 1000);
 
