@@ -9,10 +9,13 @@ import { AiOutlineEdit } from "react-icons/ai";
 import { updateSchedule } from "../../queries/schedules/schedules";
 import { UpdateScheduleSchema } from "../../schemas/UpdateScheduleSchema";
 import { ScheduleHours } from "../../arrays/ScheduleHours"
+import { useFetchServices } from "../../queries/services/services";
+import moment from "moment";
 
 const UpdateScheduleModal = (schedule) => {
   const [isModalCreateOpen, setCreateModalOpen] = useState(false);
-  console.log(schedule);
+  const { data: services = [] } = useFetchServices();
+
   const {
     handleSubmit,
     control,
@@ -34,9 +37,16 @@ const UpdateScheduleModal = (schedule) => {
     setCreateModalOpen(false);
   }
 
-  const handlerUpdate = async (schedules) => {
+  const handlerUpdate = async (formData) => {
+    const formattedDate = moment(formData.date).format('YYYY-MM-DD');
+    formData.date = formattedDate;
+
+    const selectedService = services.find(service => service.id === formData.service_id);
+    if (selectedService && selectedService.autoschedule) {
+      formData.status = "Aceito";
+    }
     setCreateModalOpen(false);
-    await updateSchedule(schedule.value.id, schedules);
+    await updateSchedule(schedule.value.id, formData);
   };
 
   return (

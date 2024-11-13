@@ -7,7 +7,7 @@ export class UpdateScheduleController {
   public async execute(req: Request, res: Response): Promise<Response> {
 
       const id = req.params.id;
-      const {date, hour, status} = req.body;
+      const {date, hour, status, endhour} = req.body;
 
       const updateScheduleService = container.resolve(UpdateScheduleService);
 
@@ -15,6 +15,7 @@ export class UpdateScheduleController {
         id,
         date,
         hour,
+        endhour,
         status,
       }
 
