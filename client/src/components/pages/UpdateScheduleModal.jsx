@@ -8,6 +8,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { AiOutlineEdit } from "react-icons/ai";
 import { updateSchedule } from "../../queries/schedules/schedules";
 import { UpdateScheduleSchema } from "../../schemas/UpdateScheduleSchema";
+import { ScheduleHours } from "../../arrays/ScheduleHours"
 
 const UpdateScheduleModal = (schedule) => {
   const [isModalCreateOpen, setCreateModalOpen] = useState(false);
@@ -68,18 +69,7 @@ const UpdateScheduleModal = (schedule) => {
               labelText="Selecione o horário"
               control={control}
               hasError={errors.hour}
-              options={[
-                "13:00",
-                "13:30",
-                "14:00",
-                "14:30",
-                "15:00",
-                "15:30",
-                "16:00",
-                "16:30",
-                "17:00",
-                "17:30",
-              ]}
+              options={ScheduleHours}
               disabled={false}
             />
           </div>
