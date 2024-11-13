@@ -9,6 +9,8 @@ import { createSchedule } from "../../queries/schedules/schedules";
 import { CreateScheduleSchema } from "../../schemas/CreateScheduleSchema";
 import { useFetchServices } from "../../queries/services/services";
 import FormSelectObject from "../Form/FormSelectObject";
+import { ScheduleHours } from "../../arrays/ScheduleHours"
+import moment from "moment";
 
 const CreateScheduleModal = () => {
   const [isModalCreateOpen, setCreateModalOpen] = useState(false);
@@ -33,7 +35,7 @@ const CreateScheduleModal = () => {
   const closeCreateModal = () => setCreateModalOpen(false);
 
   const handlerCreate = async (formData) => {
-    const formattedDate = new Date(formData.date).toLocaleDateString('en-CA');
+    const formattedDate = moment(formData.date).format('YYYY-MM-DD');
     formData.date = formattedDate;
 
     const selectedService = services.find(service => service.id === formData.service_id);
@@ -74,18 +76,7 @@ const CreateScheduleModal = () => {
               labelText="Selecione o horário"
               control={control}
               hasError={errors.hour}
-              options={[
-                "13:00",
-                "13:30",
-                "14:00",
-                "14:30",
-                "15:00",
-                "15:30",
-                "16:00",
-                "16:30",
-                "17:00",
-                "17:30",
-              ]}
+              options={ScheduleHours}
               disabled={false}
             />
 

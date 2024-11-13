@@ -1,9 +1,10 @@
+import { ScheduleHours } from "../enums/ScheduleHours.enum";
 import { ScheduleTypes } from "../enums/ScheduleTypes.enum";
 
 export interface ISchedule {
   id: number;
   date: Date;
-  hour: string;
+  hour: ScheduleHours;
   endhour: string;
   status: ScheduleTypes;
   service_id: number;

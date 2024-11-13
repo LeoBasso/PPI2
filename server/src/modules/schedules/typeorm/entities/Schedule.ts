@@ -11,6 +11,7 @@ import User from 'src/modules/user/typeorm/entities/User';
 import Service from 'src/modules/services/typeorm/entities/Service';
 import { ScheduleTypes } from '../../domain/enums/ScheduleTypes.enum';
 import { ISchedule } from '../../domain/interfaces/ISchedule';
+import { ScheduleHours } from '../../domain/enums/ScheduleHours.enum';
 
 @Entity('schedules')
 class Schedule implements ISchedule {
@@ -20,8 +21,11 @@ class Schedule implements ISchedule {
   @Column({ type: 'date' })
   date: Date;
 
-  @Column()
-  hour: string;
+  @Column({
+    type: 'enum',
+    enum: ScheduleHours,
+  })
+  hour: ScheduleHours;
 
   @Column()
   endhour: string;
