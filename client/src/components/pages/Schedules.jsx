@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import moment from "moment"; // Importando o moment
 import { useFetchServices } from "../../queries/services/services";
 import { useFetchUsers } from "../../queries/users/users";
 import { getUserFromLocalStorage } from "../../utils/localStorage";
@@ -14,14 +15,20 @@ const Schedules = ({ schedule }) => {
   const service = services?.find(service => service?.id === schedule?.service_id);
   const scheduleUser = users?.find(u => u.id === schedule?.user_id);
 
+  const pastDate = moment(schedule?.date).isBefore(moment(), 'day');
+
+  if (pastDate) {
+    return null;
+  }
+
   const handleAccept = async () => {
-      const updatedSchedule = { id: schedule?.id, status: 'Aceito',
-      }; await updateSchedule(schedule?.id, updatedSchedule);
+    const updatedSchedule = { id: schedule?.id, status: 'Aceito' };
+    await updateSchedule(schedule?.id, updatedSchedule);
   };
 
   const handleReject = async () => {
-      const updatedSchedule = {id: schedule?.id, status: 'Recusado',
-      }; await updateSchedule(schedule?.id, updatedSchedule);
+    const updatedSchedule = { id: schedule?.id, status: 'Recusado' };
+    await updateSchedule(schedule?.id, updatedSchedule);
   };
 
   return (

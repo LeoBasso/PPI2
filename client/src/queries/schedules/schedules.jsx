@@ -9,7 +9,7 @@ export const createSchedule = async (schedule) => {
     await queryClient.invalidateQueries('schedule');
     toast.success("Agendamento criado com sucesso!");
   } catch (error) {
-    toast.warn("O tempo do serviço não se ajusta ao horário selecionado");
+    toast.error("O tempo do serviço não se ajusta ao horário selecionado");
   }
 };
 

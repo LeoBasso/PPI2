@@ -693,3 +693,15 @@ button.rbc-input::-moz-focus-inner {
   background-color: #74ad31;
   pointer-events: none;
 }
+
+.past-event {
+  background-color: rgb(226, 206, 115) !important;
+  color: white !important;                          
+  border-radius: 5px;                               
+}
+
+.past-event-selected {
+  background-color: rgb(229, 218, 166) !important;
+  color: white !important;                          
+  border-radius: 5px;       
+}
