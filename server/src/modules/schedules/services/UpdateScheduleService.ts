@@ -72,6 +72,9 @@ export class UpdateScheduleService {
     if (updateSchedule.status) {
       schedule.status = updateSchedule.status;
     }
+    schedule.date = updateSchedule.date;
+    schedule.hour = updateSchedule.hour as ScheduleHours;
+    schedule.endhour = updateSchedule.hour;
 
     const response = await this.schedulesRepository.save(schedule);
 
