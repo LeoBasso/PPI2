@@ -15,7 +15,7 @@ const Schedules = ({ schedule }) => {
   const service = services?.find(service => service?.id === schedule?.service_id);
   const scheduleUser = users?.find(u => u.id === schedule?.user_id);
 
-  const pastDate = moment(schedule?.date).isBefore(moment(), 'day');
+  const pastDate = moment(schedule?.date, "DD/MM/YYYY").isBefore(moment(), 'day');
 
   if (pastDate) {
     return null;
