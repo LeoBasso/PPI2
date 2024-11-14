@@ -9,8 +9,9 @@ import { createSchedule } from "../../queries/schedules/schedules";
 import { CreateScheduleSchema } from "../../schemas/CreateScheduleSchema";
 import { useFetchServices } from "../../queries/services/services";
 import FormSelectObject from "../Form/FormSelectObject";
-import { ScheduleHours } from "../../arrays/ScheduleHours"
+import { ScheduleHours } from "../../arrays/ScheduleHours";
 import moment from "moment";
+import { toast } from "react-toastify";
 
 const CreateScheduleModal = () => {
   const [isModalCreateOpen, setCreateModalOpen] = useState(false);
@@ -37,6 +38,12 @@ const CreateScheduleModal = () => {
   const handlerCreate = async (formData) => {
     const formattedDate = moment(formData.date).format('YYYY-MM-DD');
     formData.date = formattedDate;
+
+    const dayOfWeek = moment(formData.date).day();
+    if (dayOfWeek === 0 || dayOfWeek === 6) {
+      toast.error('Não é possível criar agendamentos aos sábados e domingos');
+      return;
+    }
 
     const selectedService = services.find(service => service.id === formData.service_id);
     if (selectedService && selectedService.autoschedule) {
@@ -68,24 +75,23 @@ const CreateScheduleModal = () => {
               labelText="Data"
               placeholder="Data"
               control={control}
-              hasError={errors.date?.message}
+              hasError={JSON.stringify(errors.date?.message)}
             />
             <FormRow
               type="hour"
               name="hour"
               labelText="Selecione o horário"
               control={control}
-              hasError={errors.hour}
+              hasError={JSON.stringify(errors.hour?.message)}
               options={ScheduleHours}
               disabled={false}
             />
-
             <FormSelectObject
               name="service_id"
               control={control}
               labelText="Serviço"
               options={serviceOptions}
-              hasError={errors.service_id?.message}
+              hasError={JSON.stringify(errors.service_id?.message)}
             />
           </div>
           <div className="relative inline-flex items-center justify-center">

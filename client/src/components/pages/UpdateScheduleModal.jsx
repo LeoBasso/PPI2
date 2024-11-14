@@ -11,6 +11,7 @@ import { UpdateScheduleSchema } from "../../schemas/UpdateScheduleSchema";
 import { ScheduleHours } from "../../arrays/ScheduleHours"
 import { useFetchServices } from "../../queries/services/services";
 import moment from "moment";
+import { toast } from "react-toastify";
 
 const UpdateScheduleModal = (schedule) => {
   const [isModalCreateOpen, setCreateModalOpen] = useState(false);
@@ -40,6 +41,12 @@ const UpdateScheduleModal = (schedule) => {
   const handlerUpdate = async (formData) => {
     const formattedDate = moment(formData.date).format('YYYY-MM-DD');
     formData.date = formattedDate;
+
+    const dayOfWeek = moment(formData.date).day();
+    if (dayOfWeek === 0 || dayOfWeek === 6) {
+      toast.error('Não é possível agendar aos sábados e domingos');
+      return;
+    }
 
     const selectedService = services.find(service => service.id === formData.service_id);
     if (selectedService && selectedService.autoschedule) {

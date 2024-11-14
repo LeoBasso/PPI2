@@ -17,6 +17,11 @@ export class CreateScheduleService {
   public async execute(createSchedule: CreateScheduleDTO): Promise<ScheduleResponseDTO> {
     const scheduleDate = new Date(createSchedule.date);
 
+    const dayOfWeek = scheduleDate.getDay();
+    if (dayOfWeek === 0 || dayOfWeek === 6) {
+      throw new BadRequestError('Não é possível criar agendamentos aos sábados e domingos');
+    }
+
     if (scheduleDate < new Date()) {
       throw new BadRequestError('Não é possível criar agendamentos em datas anteriores a hoje');
     }
