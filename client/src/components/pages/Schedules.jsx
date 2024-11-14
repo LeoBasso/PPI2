@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import moment from "moment"; // Importando o moment
+import moment from "moment";
 import { useFetchServices } from "../../queries/services/services";
 import { useFetchUsers } from "../../queries/users/users";
 import { getUserFromLocalStorage } from "../../utils/localStorage";
